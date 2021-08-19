@@ -1,0 +1,85 @@
+.cover-image
+{
+    background-image: url("images/cover.jpg");
+    /* background-size: 90rem 30rem; */
+    background-size:100% auto;
+    background-repeat: no-repeat;
+    height: 100vh;
+    position:relative;
+    bottom: -1px;
+}
+.cover-img
+{
+    width: 100vw;
+    height: auto;
+}
+
+.row
+{
+    margin: 0;
+    padding: 0;
+}
+
+.sale-img
+{
+    /* background-image: url("images/coupon1.jpg"); */
+    /* background-size: 90rem 30rem; */
+    /* background-size:100% auto;
+    background-repeat: no-repeat;
+    height: 50vh;
+    position:relative;
+    bottom: -1px; */
+    margin : 0;
+    padding: 0;
+}
+
+.sale-img2
+{
+    background-image: url("images/coupon2.jpg");
+    /* background-size: 90rem 30rem; */
+    background-size:100% auto;
+    background-repeat: no-repeat;
+    height: 50vh;
+    position:relative;
+    bottom: -1px;
+}
+
+.landing-page-button
+{
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    font-weight: bold;
+}
+
+.landing-buttons-tray
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+.offer-image
+{
+    background-image: url("images/offer.jpg");
+    /* background-size: 90rem 30rem; */
+    background-size:100% auto;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+.admiration-buttons
+{
+  border-radius: 300px;
+  border: 1px solid #031E49;
+  background-color: #031E49;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  white-space: break-spaces;
+}
