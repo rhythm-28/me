@@ -9,6 +9,16 @@
     color: white;
 }
 
+.footer-lists p
+{
+    padding-left: 10%;
+}
+
+.footer-logo
+{
+    margin-bottom: 5%;
+}
+
 .footer-lists h6
 {
     color: red;

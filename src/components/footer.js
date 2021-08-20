@@ -7,7 +7,7 @@ function Footer(){
         <div>
             <div className="row footer-div">
                 <div className="col-4 footer-lists">
-                    <img src={logo}/>
+                    <img className="footer-logo" src={logo}/>
                     <p>Bangalore,Karnataka,INDIA</p>
                     <p>+91 012341567890</p>
                     <p>connect@modcrw.com</p>

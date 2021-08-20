@@ -12,7 +12,7 @@ import offer from "../stylesheets/images/offer.jpg";
 function Home(){
     
     // pagination
-    const limit = 1;
+    const limit = 3;
     const [pageno,setPageno] = useState(1);
     const [noPages,setNoPages] = useState(1);
 
@@ -20,20 +20,22 @@ function Home(){
 
     const [categoryData,setCategoryData] = useState(null);
     const [data,setData] =  useState(null);
+    const [selectedCategory,setSelectedCategory] = useState('all');
+
     useEffect(()=>{
         axios.get("https://modcrew-dev.herokuapp.com/api/v1/products")
             .then((response)=>{
                 setData(response.data.data);
 
-                setCategoryData(response.data.data);
+                // setCategoryData(response.data.data);
                 // console.log(response.data.data);
             });
-        // axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products&limit=${limit}&page=${pageno}`)
-        // .then((response)=>{
-        //     setCategoryData(response.data.data);
-        //     console.log(response.data.data);
-        // });
-    },[]);
+        axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products?limit=${limit}&page=${pageno}`)
+        .then((response)=>{
+            setCategoryData(response.data.data);
+            console.log(response.data.data);
+        });
+    },[pageno,limit]);
 
     useEffect(() => {
         setNoPages(categoryData?.length/limit);
@@ -98,19 +100,38 @@ function Home(){
         }
     }
 
-    function handleCategoryClick(category){
-        if(category==='all'){
-            axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products&limit=${limit}&page=${pageno}`)
+    function handlePageClick(){
+        if(selectedCategory==='all'){
+            axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products?limit=${limit}&page=${pageno}`)
             .then((response)=>{
                 setCategoryData(response.data.data);
                 console.log(response.data.data);
             });
         }
         else{
-            axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products?category=${category}&limit=${limit}&page=${pageno}`)
+            
+            axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products?category=${selectedCategory}&limit=${limit}&page=${pageno}`)
             .then((response)=>{
                 setCategoryData(response.data.data);
                 console.log(response.data.data);
+            });
+        }
+    }
+
+    function handleCategoryClick(category){
+        setPageno(1);
+        if(category==='all'){
+            axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products?limit=${limit}&page=${pageno}`)
+            .then((response)=>{
+                setCategoryData(response.data.data)
+                console.log(response.data.data);
+            });
+        }
+        else{
+            setSelectedCategory(category);
+            axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products?category=${category}&limit=${limit}&page=${pageno}`)
+            .then((response)=>{
+                setCategoryData(response.data.data)
             });
         }
     }
@@ -170,6 +191,7 @@ function Home(){
                 {renderCategoryData()}
                 <button onClick={()=>{
                     setPageno(pageno+1);
+                    handlePageClick();
                 }}>Hello</button>
             </div>
             <div>
