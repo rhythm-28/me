@@ -18,35 +18,36 @@ function Navbar(){
                     <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
                         <a className="navbar-brand logo" href="#"></a>
                         <div className="main-div">
-                            <div className="row">
+                            <div className="row upper-navbar">
                                 <ul className="navbar-nav col me-auto mb-2 mb-lg-0">
-                                    <li className="nav-item">
+                                    <li className="nav-item upper-nav-list">
                                         <a className="nav-link active" aria-current="page" href="#">Home</a>
                                     </li>
-                                    <li className="nav-item">
+                                    <li className="nav-item upper-nav-list">
                                         <a className="nav-link" href="#">Winners List</a>
                                     </li>
-                                    <li className="nav-item">
+                                    <li className="nav-item upper-nav-list">
                                         <a className="nav-link" href="#">Contact Us</a>
                                     </li>
-                                    <li className="nav-item">
+                                    <li className="nav-item upper-nav-list">
                                         <a className="nav-link" href="#">About</a>
                                     </li>
-                                    <li className="nav-item">
+                                    <li className="nav-item upper-nav-list">
                                         <a className="nav-link" href="#">Help</a>
                                     </li>
                                 </ul>
-                                <div className="col">
-                                    <FaFacebookF className="white-color"/>
-                                    <IoLogoWhatsapp className="white-color"/>
-                                    <RiTwitterFill className="white-color"/>
-                                    <RiInstagramFill className="white-color"/>
-                                    {/* <IoCallSharp className="white-color"/> */}
+                                <div className="col social-icons">
+                                    <FaFacebookF size={25}className="white-color"/>
+                                    <IoLogoWhatsapp size={25} className="white-color"/>
+                                    <RiTwitterFill size={25} className="white-color"/>
+                                    <RiInstagramFill size={25} className="white-color"/>
+                                    {/* <IoCallSharp size={25} className="white-color"/> */}
+                                    <button className="login-btn">Login/Signup</button>
                                 </div>
                             </div>
                             <div className="navbar-search">
                                 <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button class="btn btn-secondary dropdown-toggle navbar-dropdown" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                         All Categories
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">

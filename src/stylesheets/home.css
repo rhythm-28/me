@@ -8,17 +8,18 @@
     position:relative;
     bottom: -1px;
 }
+
 .cover-img
 {
     width: 100vw;
     height: auto;
 }
 
-.row
+/* .row
 {
     margin: 0;
     padding: 0;
-}
+} */
 
 .sale-img
 {
@@ -63,11 +64,13 @@
 
 .offer-image
 {
-    background-image: url("images/offer.jpg");
+    /* background-image: url("images/offer.jpg"); */
     /* background-size: 90rem 30rem; */
-    background-size:100% auto;
+    /* background-size:100% auto;
     background-repeat: no-repeat;
-    height: 100vh;
+    height: 100vh; */
+    width: 100vw;
+    height: auto;
 }
 
 .admiration-buttons
@@ -82,4 +85,15 @@
   letter-spacing: 1px;
   text-transform: uppercase;
   white-space: break-spaces;
+}
+
+.select-categories-btn
+{
+    margin-left: 45%;
+}
+
+.top-selling
+{
+    text-align: center;
+    color: #F02324
 }

@@ -5,35 +5,178 @@ import axios from "axios";
 import coupon1 from "../stylesheets/images/coupon1.jpg";
 import coupon2 from "../stylesheets/images/coupon2.jpg";
 import cover from "../stylesheets/images/cover.jpg";
+import Footer from "./footer.js";
+import Product from "./product.js";
+import offer from "../stylesheets/images/offer.jpg";
 
 function Home(){
+    
+    // pagination
+    const limit = 1;
+    const [pageno,setPageno] = useState(1);
+    const [noPages,setNoPages] = useState(1);
 
-    // const [data,setData] =  useState(null);
-    // useEffect(()=>{
-    //     axios.get("https://modcrew-dev.herokuapp.com/api/v1/products")
-    //         .then((response)=>{
-    //             setData(response.data.count);
-    //             console.log(response.data.count);
-    //         });
-    // },[]);
+    const [featured,setFeatured] = useState(false);
+
+    const [categoryData,setCategoryData] = useState(null);
+    const [data,setData] =  useState(null);
+    useEffect(()=>{
+        axios.get("https://modcrew-dev.herokuapp.com/api/v1/products")
+            .then((response)=>{
+                setData(response.data.data);
+
+                setCategoryData(response.data.data);
+                // console.log(response.data.data);
+            });
+        // axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products&limit=${limit}&page=${pageno}`)
+        // .then((response)=>{
+        //     setCategoryData(response.data.data);
+        //     console.log(response.data.data);
+        // });
+    },[]);
+
+    useEffect(() => {
+        setNoPages(categoryData?.length/limit);
+        
+    },[categoryData,limit,pageno]);
+
+    function handleClick1(){
+        setFeatured(false);
+    }
+
+    function handleClick2(){
+        setFeatured(true);
+    }
+
+    function renderLatest(){
+        if(data!==null){
+            return data.map((product)=>{ 
+                return (
+                    <Product 
+                        avgRating={product.avgRating} 
+                        title={product.title} 
+                        sellingPrice={product.sellingPrice}
+                        mrp={product.mrp}
+                        img={product.images[0]}
+                    /> 
+                );
+            })
+        }
+    }
+
+    function renderFeatured(){
+        if(data!==null){
+            return data.map((product)=>{
+                if(product.isFeatured===true){
+                    return (
+                        <Product 
+                            avgRating={product.avgRating} 
+                            title={product.title} 
+                            sellingPrice={product.sellingPrice}
+                            mrp={product.mrp}
+                            img={product.images[0]}
+                        /> 
+                    );
+                } 
+            })
+        }
+    }
+
+    function renderCategoryData(){
+        if(categoryData!==null){
+            return categoryData.map((product)=>{ 
+                return (
+                    <Product 
+                        avgRating={product.avgRating} 
+                        title={product.title} 
+                        sellingPrice={product.sellingPrice}
+                        mrp={product.mrp}
+                        img={product.images[0]}
+                    /> 
+                );
+            })
+        }
+    }
+
+    function handleCategoryClick(category){
+        if(category==='all'){
+            axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products&limit=${limit}&page=${pageno}`)
+            .then((response)=>{
+                setCategoryData(response.data.data);
+                console.log(response.data.data);
+            });
+        }
+        else{
+            axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products?category=${category}&limit=${limit}&page=${pageno}`)
+            .then((response)=>{
+                setCategoryData(response.data.data);
+                console.log(response.data.data);
+            });
+        }
+    }
+
+    const availableCatagories = [
+        'collectibles',
+        'diary',
+        'sticker',
+        'badge',
+        'key-chain',
+        'poster',
+        'fashion',
+        'active-wear',
+        'jogger',
+        'jersey',
+        'top-wear',
+        'henley',
+        'round-neck',
+        'crop-top',
+        'bottom-wear',
+        'shorts',
+        'accessories',
+        'cap',
+        'bandana',
+        'bag'
+    ]
+
     return (
         <div>
             <Navbar />
             <img className="cover-img" src={cover} />
-            {/* <div className="cover-image"></div> */}
             <div className="row">
                 <img className="col-6 sale-img" src={coupon1} />
                 <img className="col-6 sale-img" src={coupon2} />
-                {/* <img src="C:\Users\Rhythm Bhatia\Desktop\me\src\stylesheets\images\coupon1.jpg" alt="sale"/>
-                <div className="col-6 sale-img1"></div>
-                <div className="col-6 sale-img2"></div> */}
             </div>
             <div className="row landing-buttons-tray">
-                <button className="landing-page-button col">New Arrivals </button>
-                <button className="landing-page-button col"> Featured Products</button>
+                <button className="landing-page-button col" onClick={handleClick1}>New Arrivals </button>
+                <button className="landing-page-button col" onClick={handleClick2}> Featured Products</button>
                 <button className="landing-page-button col">Best Selling </button>
             </div>
-            <div className="offer-image"></div>
+            <div className="row">
+                {featured ? renderFeatured(): renderLatest()}
+            </div>
+            <hr />
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle select-categories-btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        Select Categories
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><button onClick={()=>{handleCategoryClick("all")}} className="dropdown-item" >All products</button></li>
+                    {availableCatagories.map((category)=>{
+                        return (<li><button onClick={()=>{handleCategoryClick(category)}} className="dropdown-item" >{category}</button></li>);
+                    })}
+                </ul>
+            </div>
+            <div className="row">
+                {renderCategoryData()}
+                <button onClick={()=>{
+                    setPageno(pageno+1);
+                }}>Hello</button>
+            </div>
+            <div>
+                <h3 className="top-selling" style={{textAlign:'center'}}>Top Selling of the Week</h3>
+            </div>
+            <img src={offer} className="offer-image" />
+            {/* <div className="offer-image"></div> */}
             <button className="admiration-buttons">
                 Safe and Secure Checkout
             </button>
@@ -44,7 +187,8 @@ function Home(){
             <button className="admiration-buttons">
                 100% SATISFACTION GUARANTEED
             </button>
-            {/* <h1>{data}</h1> */}
+            
+            <Footer />
         </div>
     );
 }

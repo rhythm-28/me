@@ -1,6 +1,9 @@
 .navbar-search
 {
     display: flex;
+    margin-top: 1%;
+    margin-left: 1%;
+    padding-left: 4%;
 }
 
 .navbar-search form
@@ -30,7 +33,7 @@
 
 .logo
 {
-  background: url("images/logow.svg") no-repeat 6px center;
+  background: url("images/logow.svg") no-repeat 10px center;
   background-size: 160px 400px;
   /* width: 10px;
   height: 10px; */
@@ -39,13 +42,13 @@
   display: block;
 }
 
-i
+/* i
 {
     background: url('images/coupon1.jpg');
     height: 20px;
     width: 20px;
     display: block;
-}
+} */
 
 .navbar-buttons
 {
@@ -63,10 +66,46 @@ i
 
 .button-tray
 {
-    margin-left: 10%;
+    margin-left: 21%;
 }
 
 .white-color
 {
     color: white;
+    margin-left: 7%;
+}
+
+.social-icons
+{
+    margin-left: 20%;
+    /* padding-left: 10%; */
+}
+
+.login-btn
+{
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    font-weight: bold;
+    color: white;
+    margin-left: 10%;
+}
+
+.upper-navbar
+{
+    margin-left: 4%;
+}
+
+.upper-nav-list
+{
+    margin-left: 1.5%;
+}
+
+.navbar-dropdown
+{
+    background-color: white;
+    color: black;
 }

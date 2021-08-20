@@ -1,0 +1,51 @@
+.original-price
+{
+    text-decoration: line-through;
+    font-size: small;
+    margin-left: 5%;
+}
+
+.discnt-price
+{
+    color:#EE0405;
+    font-weight: bold;
+}
+
+.product-card
+{
+    width: 18rem;
+    margin-left: 3.5%;
+    margin-bottom: 2%;
+    margin-top: 2%;
+}
+
+.like-btn
+{
+    margin-left: 70%;
+}
+
+.sold-qty
+{
+    margin-left: 40%;
+    height: 26px;
+    width: 31px;
+    background-color: red;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.product-name
+{
+    margin-top: 5%;
+    font-weight: bold;
+}
+
+.star-icon
+{
+    color: #F2994A;
+}
+
+.product-body
+{
+    margin-top: -25px;
+}

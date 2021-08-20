@@ -1,0 +1,26 @@
+.footer-div
+{
+    background-color: black;
+    padding-top: 3%;
+}
+
+.footer-lists
+{
+    color: white;
+}
+
+.footer-lists h6
+{
+    color: red;
+    text-transform: uppercase;
+}
+
+.second-footer
+{
+    background-color: red;
+}
+
+.second-footer p
+{
+    color: white;
+}
