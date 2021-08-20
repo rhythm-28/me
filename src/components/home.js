@@ -8,15 +8,17 @@ import cover from "../stylesheets/images/cover.jpg";
 import Footer from "./footer.js";
 import Product from "./product.js";
 import offer from "../stylesheets/images/offer.jpg";
+import Carousel from "./carousel.js";
 
 function Home(){
     
-    // pagination
     const limit = 3;
     const [pageno,setPageno] = useState(1);
-    const [noPages,setNoPages] = useState(1);
-
     const [featured,setFeatured] = useState(false);
+    
+    const [typeOfProducts,setTypeOfProducts] = useState(1);
+
+    const [specificCategoryData,setSpecificCategoryData] = useState(null);
 
     const [categoryData,setCategoryData] = useState(null);
     const [data,setData] =  useState(null);
@@ -27,27 +29,24 @@ function Home(){
             .then((response)=>{
                 setData(response.data.data);
 
-                // setCategoryData(response.data.data);
-                // console.log(response.data.data);
+                setCategoryData(response.data.data);
             });
-        axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products?limit=${limit}&page=${pageno}`)
-        .then((response)=>{
-            setCategoryData(response.data.data);
-            console.log(response.data.data);
-        });
-    },[pageno,limit]);
+    },[]);
 
-    useEffect(() => {
-        setNoPages(categoryData?.length/limit);
-        
-    },[categoryData,limit,pageno]);
+    
 
-    function handleClick1(){
+    function handleClick1(e){
         setFeatured(false);
+        setTypeOfProducts(1);
     }
 
     function handleClick2(){
         setFeatured(true);
+        setTypeOfProducts(2);
+    }
+
+    function handleClick3(){
+        setTypeOfProducts(3);
     }
 
     function renderLatest(){
@@ -86,7 +85,7 @@ function Home(){
 
     function renderCategoryData(){
         if(categoryData!==null){
-            return categoryData.map((product)=>{ 
+            return specificCategoryData?.map((product)=>{ 
                 return (
                     <Product 
                         avgRating={product.avgRating} 
@@ -100,42 +99,55 @@ function Home(){
         }
     }
 
-    function handlePageClick(){
-        if(selectedCategory==='all'){
-            axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products?limit=${limit}&page=${pageno}`)
-            .then((response)=>{
-                setCategoryData(response.data.data);
-                console.log(response.data.data);
-            });
-        }
-        else{
-            
-            axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products?category=${selectedCategory}&limit=${limit}&page=${pageno}`)
-            .then((response)=>{
-                setCategoryData(response.data.data);
-                console.log(response.data.data);
-            });
-        }
-    }
-
     function handleCategoryClick(category){
         setPageno(1);
+        setCategoryData([]);
         if(category==='all'){
-            axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products?limit=${limit}&page=${pageno}`)
+            setSelectedCategory("all");
+            axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products`)
             .then((response)=>{
-                setCategoryData(response.data.data)
-                console.log(response.data.data);
+                setCategoryData(response.data.data);
             });
         }
         else{
             setSelectedCategory(category);
-            axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products?category=${category}&limit=${limit}&page=${pageno}`)
+            axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products?category=${category}`)
             .then((response)=>{
-                setCategoryData(response.data.data)
+                setCategoryData(response.data.data);
             });
         }
     }
 
+    useEffect(()=>{
+        if(selectedCategory==='all'){
+            axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products?limit=${limit}&page=${pageno}`)
+        .then((response)=>{
+            setSpecificCategoryData(response.data.data);
+        });
+        }
+        else{
+            axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products?category=${selectedCategory}&limit=${limit}&page=${pageno}`)
+            .then((response)=>{
+                setSpecificCategoryData(response.data.data);
+            });
+        }
+    },[pageno,selectedCategory]);
+
+    function makingPaginationButtons(){
+        if(categoryData?.length>0){
+            let noOfPages = 0;
+            noOfPages = Math.ceil(categoryData.length/limit);
+            //console.log("categoryData.length",categoryData.length,"limit",limit,"nop",noOfPages,"currentpage",pageno);
+
+            var pagination = [];
+            for(var i=1;i<=noOfPages;i++){
+                pagination.push(
+                    <button value={i} onClick={(e)=>{setPageno(parseInt(e.target.value))}}>{i}</button>
+                );
+            }
+        }
+        return pagination;
+    }
     const availableCatagories = [
         'collectibles',
         'diary',
@@ -168,9 +180,9 @@ function Home(){
                 <img className="col-6 sale-img" src={coupon2} />
             </div>
             <div className="row landing-buttons-tray">
-                <button className="landing-page-button col" onClick={handleClick1}>New Arrivals </button>
-                <button className="landing-page-button col" onClick={handleClick2}> Featured Products</button>
-                <button className="landing-page-button col">Best Selling </button>
+                <button id="landing-1" value={1} onClick={(e) => {handleClick1(e)}} className={typeOfProducts===1 ? "landing-page-button landing-page-red col" : "landing-page-button col"} >New Arrivals </button>
+                <button id="landing-2" value={2} onClick={(e) => {handleClick2(e)}} className={typeOfProducts===2 ? "landing-page-button landing-page-red col" : "landing-page-button col"} > Featured Products</button>
+                <button id="landing-3" value={3} onClick={(e) => {handleClick3(e)}} className={typeOfProducts===3 ? "landing-page-button landing-page-red col" : "landing-page-button col"} >Best Selling </button>
             </div>
             <div className="row">
                 {featured ? renderFeatured(): renderLatest()}
@@ -189,26 +201,27 @@ function Home(){
             </div>
             <div className="row">
                 {renderCategoryData()}
-                <button onClick={()=>{
-                    setPageno(pageno+1);
-                    handlePageClick();
-                }}>Hello</button>
+            </div>
+            <div className="row d-flex" key={categoryData?.length}>
+                {makingPaginationButtons()}
             </div>
             <div>
                 <h3 className="top-selling" style={{textAlign:'center'}}>Top Selling of the Week</h3>
             </div>
-            <img src={offer} className="offer-image" />
-            {/* <div className="offer-image"></div> */}
-            <button className="admiration-buttons">
-                Safe and Secure Checkout
-            </button>
-            <button className="admiration-buttons">
-                NO-HASSLE 
-                RETURNS AND EXCHANGES
-            </button>
-            <button className="admiration-buttons">
-                100% SATISFACTION GUARANTEED
-            </button>
+            <Carousel />
+            <div className="row admire-buttons">
+                <button className="admiration-buttons col-3">
+                    Safe and Secure Checkout
+                </button>
+                <button className="admiration-buttons col-3">
+                    NO-HASSLE 
+                    RETURNS AND EXCHANGES
+                </button>
+                <button className="admiration-buttons col-3">
+                    100% SATISFACTION GUARANTEED
+                </button>
+            </div>
+            
             
             <Footer />
         </div>

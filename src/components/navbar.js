@@ -5,7 +5,30 @@ import { IoLogoWhatsapp } from 'react-icons/io';
 import { AiOutlineTwitter } from 'react-icons/ai';
 import { RiTwitterFill } from 'react-icons/ri';
 import { RiInstagramFill } from 'react-icons/ri';
-// import { IoCallSharp } from 'react-icons/io';
+import { IoIosCall } from 'react-icons/io';
+
+const availableCatagories = [
+    'collectibles',
+    'diary',
+    'sticker',
+    'badge',
+    'key-chain',
+    'poster',
+    'fashion',
+    'active-wear',
+    'jogger',
+    'jersey',
+    'top-wear',
+    'henley',
+    'round-neck',
+    'crop-top',
+    'bottom-wear',
+    'shorts',
+    'accessories',
+    'cap',
+    'bandana',
+    'bag'
+]
 
 function Navbar(){
     return (
@@ -37,11 +60,11 @@ function Navbar(){
                                     </li>
                                 </ul>
                                 <div className="col social-icons">
-                                    <FaFacebookF size={25}className="white-color"/>
-                                    <IoLogoWhatsapp size={25} className="white-color"/>
-                                    <RiTwitterFill size={25} className="white-color"/>
-                                    <RiInstagramFill size={25} className="white-color"/>
-                                    {/* <IoCallSharp size={25} className="white-color"/> */}
+                                    <button><FaFacebookF size={25}className="white-color"/></button>
+                                    <button><IoLogoWhatsapp size={25} className="white-color"/></button>
+                                    <button><RiTwitterFill size={25} className="white-color"/></button>
+                                    <button><RiInstagramFill size={25} className="white-color"/></button>
+                                    <button><IoIosCall size={25} className="white-color"/></button>
                                     <button className="login-btn">Login/Signup</button>
                                 </div>
                             </div>
@@ -51,9 +74,9 @@ function Navbar(){
                                         All Categories
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="#">Action</a></li>
-                                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    {availableCatagories.map((category)=>{
+                                        return (<li><a class="dropdown-item" href="#">{category}</a></li>);
+                                    })}
                                     </ul>
                                 </div>
                                 <form>
@@ -69,6 +92,13 @@ function Navbar(){
                     </div>
                 </div>
             </nav>
+            <div className="third-navbar">
+                <span className="third-navbar-spans">Active Wear</span> <span className="vertical"></span>
+                <span className="third-navbar-spans">Top Wear</span><span className="vertical"></span>
+                <span className="third-navbar-spans">Bottom Wear</span><span className="vertical"></span>
+                <span className="third-navbar-spans">Accessories</span><span className="vertical"></span>
+                <span className="third-navbar-spans">Collectibles</span>
+            </div>
         </div>
     );
 }

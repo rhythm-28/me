@@ -17,8 +17,17 @@
     margin-left: 3.5%;
     margin-bottom: 2%;
     margin-top: 2%;
+    background: #FFFDFE;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.04);
+    border-radius: 9px;
 }
 
+.product-card img:hover 
+{
+    opacity: 0.5;
+    background-color:#000;
+}
+  
 .like-btn
 {
     margin-left: 70%;

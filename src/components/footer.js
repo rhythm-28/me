@@ -48,10 +48,10 @@ function Footer(){
                 <div className="col-2 footer-lists">
                     <h6> Connect @</h6>
                     <ul>
-                        <li>Facebook</li>
-                        <li>Facebook</li>
-                        <li>Facebook</li>
-                        <li>Facebook</li>
+                        <li><a href="">Facebook</a></li>
+                        <li><a href="">Facebook</a></li>
+                        <li><a href="">Facebook</a></li>
+                        <li><a href="">Facebook</a></li>
                     </ul>
                 </div>
             </div>

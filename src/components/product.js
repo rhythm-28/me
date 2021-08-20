@@ -4,7 +4,7 @@ import cover from "../stylesheets/images/cover.jpg";
 function Product(props){
     return (
             <div className="card product-card col-3">
-                <img src={props.img} className="card-img-top" alt="..." />
+                <img src={props.img} className="card-img-top" alt={props.img} />
                 <hr />
                 <div className="card-body product-body">
                     <span className="star-icon"><i className="fas fa-star"></i> {props.avgRating}</span>
