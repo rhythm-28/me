@@ -70,3 +70,34 @@
 {
     margin-top: -25px;
 }
+
+.hover-btns
+{   
+    background-color:black;
+}
+
+.product-btns-tray
+{
+    /* opacity: 0; */
+}
+
+.product-btns-tray:hover
+{
+    opacity: 1;
+}
+
+.view-cart-btns
+{
+    position:absolute;
+    bottom: 90px;
+    right: 25%;
+    color:#FFF;
+}
+
+.parent-view-cart-btns
+{
+    display:inline-block;
+    position:relative;
+    width: 50%;; 
+    height: 50%;
+}

@@ -18,6 +18,8 @@
 {
     margin : 0;
     padding: 0;
+    width: 50vw;
+    height: auto;
 }
 
 .sale-img2
@@ -66,7 +68,7 @@
   padding: 12px 0;
   letter-spacing: 1px;
   text-transform: uppercase;
-  height: 90px;
+  height: 110px;
 }
 
 .select-categories-btn
@@ -98,6 +100,7 @@
 {
     color:red;
     border-bottom: 2px solid red;
+    border-bottom-width: thick;
 }
 
 .pagination-btns
@@ -106,4 +109,52 @@
     justify-content: space-evenly;
     margin-top: 2%;
     margin-bottom: 3%;
+}
+
+.highlight-page-no
+{
+    border-radius: 20px;
+    border: 1px solid #EE0405;
+    background-color: #EE0405;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-left: 7px;
+    width: 4%;
+}
+
+.content{    
+    width: 50%;; 
+    height: 50%;
+    /* line-height: 20px; */
+    margin-top: 0px;
+    /* margin-left: 9px; */
+    margin-right:0px;
+    display:inline-block;
+    position:relative;
+}
+
+.content button 
+{
+    position:absolute;
+    bottom:5px;
+    right:5px;
+    color:#FFF;
+}
+
+.coupon-btns
+{
+    border-radius: 50px;
+    border: 1px solid #EE0405;
+    background-color: #EE0405;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 15px 30px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-left: 7px;
 }

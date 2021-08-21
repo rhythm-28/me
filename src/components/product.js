@@ -1,10 +1,19 @@
 import react from "react";
 import styles from "../stylesheets/product.css";
 import cover from "../stylesheets/images/cover.jpg";
+import cart from "../icons/cart.svg";
+import view from "../icons/view.svg";
+
 function Product(props){
     return (
             <div className="card product-card col-3">
                 <img src={props.img} className="card-img-top" alt={props.img} />
+                <div className="parent-view-cart-btns">
+                    <div className="product-btns-tray view-cart-btns">
+                        <button className="landing-page-button"><img className="hover-btns" src={view} /></button>
+                        <button className="landing-page-button"><img className="hover-btns" src={cart} /></button>
+                    </div>
+                </div>
                 <hr />
                 <div className="card-body product-body">
                     <span className="star-icon"><i className="fas fa-star"></i> {props.avgRating}</span>

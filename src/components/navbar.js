@@ -1,11 +1,19 @@
 import react from "react";
 import styles from "../stylesheets/navbar.css";
+
 import { FaFacebookF } from 'react-icons/fa';
 import { IoLogoWhatsapp } from 'react-icons/io';
-import { AiOutlineTwitter } from 'react-icons/ai';
 import { RiTwitterFill } from 'react-icons/ri';
 import { RiInstagramFill } from 'react-icons/ri';
 import { IoIosCall } from 'react-icons/io';
+import {BsSearch} from 'react-icons/bs';
+
+import accessoriesActive from "../icons/accessories-active.svg";
+import activewearActive from "../icons/activewear-active.svg";
+import bottomwearActive from "../icons/bottomwear-active.svg";
+import topwearActive from "../icons/topwear-active.svg";
+import collectablesActive from "../icons/collectables-active.svg";
+import cart from "../icons/cart.svg";
 
 const availableCatagories = [
     'collectibles',
@@ -81,11 +89,11 @@ function Navbar(){
                                 </div>
                                 <form>
                                     <input type="search" placeholder="Search entire store here" aria-label="Search" />
-                                    <button className="btn btn-outline-success" type="submit">Search</button>
+                                    <button className="search-btn" type="submit">Search<BsSearch size={15} className="white-color"/></button>
                                 </form>
                                 <div className="button-tray">
                                     <button className="navbar-buttons"><i class="far fa-heart"></i></button>
-                                    <button className="navbar-buttons"><i class="fas fa-shopping-cart"></i> Cart(0)</button>
+                                    <button className="navbar-buttons"><img src={cart} /> Cart(0)</button>
                                 </div>
                             </div>
                         </div>
@@ -93,11 +101,11 @@ function Navbar(){
                 </div>
             </nav>
             <div className="third-navbar">
-                <span className="third-navbar-spans">Active Wear</span> <span className="vertical"></span>
-                <span className="third-navbar-spans">Top Wear</span><span className="vertical"></span>
-                <span className="third-navbar-spans">Bottom Wear</span><span className="vertical"></span>
-                <span className="third-navbar-spans">Accessories</span><span className="vertical"></span>
-                <span className="third-navbar-spans">Collectibles</span>
+                <span className="third-navbar-spans"><img src={activewearActive}/> Active Wear</span> <span className="vertical"></span>
+                <span className="third-navbar-spans"><img src={topwearActive}/> Top Wear</span><span className="vertical"></span>
+                <span className="third-navbar-spans"><img src={bottomwearActive}/> Bottom Wear</span><span className="vertical"></span>
+                <span className="third-navbar-spans"><img src={accessoriesActive}/> Accessories</span><span className="vertical"></span>
+                <span className="third-navbar-spans"><img src={collectablesActive}/> Collectibles</span>
             </div>
         </div>
     );

@@ -9,6 +9,9 @@ import Footer from "./footer.js";
 import Product from "./product.js";
 import offer from "../stylesheets/images/offer.jpg";
 import Carousel from "./carousel.js";
+import safe from "../icons/safe.svg";
+import satisfaction from "../icons/satisfaction.svg";
+import exchange from "../icons/exchange.svg";
 
 function Home(){
     
@@ -25,6 +28,8 @@ function Home(){
     const [selectedCategory,setSelectedCategory] = useState('all');
 
     const [clickedBtn,setClickedBtn] = useState(1);
+    
+    const [currentCategory,setCurrentCategory] = useState('Select Category');
 
     useEffect(()=>{
         axios.get("https://modcrew-dev.herokuapp.com/api/v1/products")
@@ -35,7 +40,27 @@ function Home(){
             });
     },[]);
 
-    
+    useEffect(()=>{
+        if(selectedCategory==='all'){
+            axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products?limit=${limit}&page=${pageno}`)
+        .then((response)=>{
+            setSpecificCategoryData(response.data.data);
+        });
+        }
+        else{
+            axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products?category=${selectedCategory}&limit=${limit}&page=${pageno}`)
+            .then((response)=>{
+                setSpecificCategoryData(response.data.data);
+            });
+        }
+    },[pageno,selectedCategory]);
+
+    useEffect(()=>{
+        const btn = document.getElementById(`btn-${pageno}`);
+        console.log(btn,pageno);
+        
+        // btn?.classList.add("highlight-page-no");
+    },[pageno]);
 
     function handleClick1(e){
         setFeatured(false);
@@ -120,20 +145,7 @@ function Home(){
         }
     }
 
-    useEffect(()=>{
-        if(selectedCategory==='all'){
-            axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products?limit=${limit}&page=${pageno}`)
-        .then((response)=>{
-            setSpecificCategoryData(response.data.data);
-        });
-        }
-        else{
-            axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products?category=${selectedCategory}&limit=${limit}&page=${pageno}`)
-            .then((response)=>{
-                setSpecificCategoryData(response.data.data);
-            });
-        }
-    },[pageno,selectedCategory]);
+    
 
     function makingPaginationButtons(){
         if(categoryData?.length>0){
@@ -143,12 +155,13 @@ function Home(){
             var pagination = [];
             for(var i=1;i<=noOfPages;i++){
                 pagination.push(
-                    <button value={i} onClick={(e)=>{setPageno(parseInt(e.target.value))}}>{i}</button>
+                    <button className="highlight-page-no" id={`btn-${i}`} value={i} onClick={(e)=>{setPageno(parseInt(e.target.value))}}>{i}</button>
                 );
             }
         }
         return pagination;
     }
+
     const availableCatagories = [
         'collectibles',
         'diary',
@@ -177,8 +190,14 @@ function Home(){
             <Navbar />
             <img className="cover-img" src={cover} />
             <div className="row">
-                <img className="col-6 sale-img" src={coupon1} />
-                <img className="col-6 sale-img" src={coupon2} />
+                <div className="col-6 content">
+                    <img className="col-12 sale-img" src={coupon1} />
+                    <button className="coupon-btns">Use Coupon <br/>L657YUOP</button>
+                </div>
+                <div className="col-6 content">
+                    <img className="col-12 sale-img" src={coupon2} />
+                    <button className="coupon-btns">Use Coupon <br/>L657YUOP</button>
+                </div>
             </div>
             <div className="row landing-buttons-tray">
                 <button id="landing-1" value={1} onClick={(e) => {handleClick1(e)}} className={typeOfProducts===1 ? "landing-page-button landing-page-red col" : "landing-page-button col"} >New Arrivals </button>
@@ -191,12 +210,18 @@ function Home(){
             <hr />
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle select-categories-btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        Select Categories
+                        {currentCategory}
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><button onClick={()=>{handleCategoryClick("all")}} className="dropdown-item" >All products</button></li>
+                    <li><button onClick={()=>{
+                        handleCategoryClick("all");
+                        setCurrentCategory('Select Category');
+                    }} className="dropdown-item" >All products</button></li>
                     {availableCatagories.map((category)=>{
-                        return (<li><button onClick={()=>{handleCategoryClick(category)}} className="dropdown-item" >{category}</button></li>);
+                        return (<li><button onClick={()=>{
+                            handleCategoryClick(category);
+                            setCurrentCategory(category);
+                        }} className="dropdown-item" >{category}</button></li>);
                     })}
                 </ul>
             </div>
@@ -212,18 +237,19 @@ function Home(){
             <Carousel />
             <div className="row admire-buttons">
                 <button className="admiration-buttons col-3">
-                    Safe and Secure Checkout
+                    <img src={safe}/><br/>
+                    Safe and Secure <br/> Checkout
                 </button>
                 <button className="admiration-buttons col-3">
-                    NO-HASSLE 
+                    <img src={exchange}/><br/>
+                    NO-HASSLE <br/>
                     RETURNS AND EXCHANGES
                 </button>
                 <button className="admiration-buttons col-3">
-                    100% SATISFACTION GUARANTEED
+                    <img src={satisfaction}/><br/>
+                    100% SATISFACTION <br/> GUARANTEED
                 </button>
             </div>
-            
-            
             <Footer />
         </div>
     );

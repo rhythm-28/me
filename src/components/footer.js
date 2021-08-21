@@ -1,6 +1,9 @@
 import react from "react";
 import styles from "../stylesheets/footer.css";
 import logo from "../stylesheets/images/logow.svg";
+import call from "../icons/call.svg";
+import location from "../icons/location.svg";
+import mail from "../icons/mail.svg";
 
 function Footer(){
     return (
@@ -8,9 +11,9 @@ function Footer(){
             <div className="row footer-div">
                 <div className="col-4 footer-lists">
                     <img className="footer-logo" src={logo}/>
-                    <p>Bangalore,Karnataka,INDIA</p>
-                    <p>+91 012341567890</p>
-                    <p>connect@modcrw.com</p>
+                    <p><img src={call}/> Bangalore,Karnataka,INDIA</p>
+                    <p><img src={location}/> +91 012341567890</p>
+                    <p><img src={mail}/> connect@modcrw.com</p>
                 </div>
                 <div className="col-2 footer-lists">
                     <h6> Browse by category</h6>
