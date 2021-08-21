@@ -12,7 +12,7 @@ import Carousel from "./carousel.js";
 
 function Home(){
     
-    const limit = 1;
+    const limit = 2;
     const [pageno,setPageno] = useState(1);
     const [featured,setFeatured] = useState(false);
     
