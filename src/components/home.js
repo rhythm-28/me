@@ -1,5 +1,8 @@
 import react, { useEffect,useState } from "react";
 import Navbar from "./navbar.js";
+import ThirdNavbar from "./ThirdNavbar.js";
+import Admiration from "./admiration.js";
+
 import styles from "../stylesheets/home.css";
 import axios from "axios";
 import coupon1 from "../stylesheets/images/coupon1.jpg";
@@ -7,11 +10,7 @@ import coupon2 from "../stylesheets/images/coupon2.jpg";
 import cover from "../stylesheets/images/cover.jpg";
 import Footer from "./footer.js";
 import Product from "./product.js";
-import offer from "../stylesheets/images/offer.jpg";
 import Carousel from "./carousel.js";
-import safe from "../icons/safe.svg";
-import satisfaction from "../icons/satisfaction.svg";
-import exchange from "../icons/exchange.svg";
 
 function Home(){
     
@@ -81,6 +80,7 @@ function Home(){
             return data.map((product)=>{ 
                 return (
                     <Product 
+                        id={product._id}
                         avgRating={product.avgRating} 
                         title={product.title} 
                         sellingPrice={product.sellingPrice}
@@ -98,6 +98,7 @@ function Home(){
                 if(product.isFeatured===true){
                     return (
                         <Product 
+                            id={product._id}
                             avgRating={product.avgRating} 
                             title={product.title} 
                             sellingPrice={product.sellingPrice}
@@ -115,6 +116,7 @@ function Home(){
             return specificCategoryData?.map((product)=>{ 
                 return (
                     <Product 
+                        id={product._id}
                         avgRating={product.avgRating} 
                         title={product.title} 
                         sellingPrice={product.sellingPrice}
@@ -144,8 +146,6 @@ function Home(){
             });
         }
     }
-
-    
 
     function makingPaginationButtons(){
         if(categoryData?.length>0){
@@ -188,6 +188,7 @@ function Home(){
     return (
         <div>
             <Navbar />
+            <ThirdNavbar />
             <img className="cover-img" src={cover} />
             <div className="row">
                 <div className="col-6 content">
@@ -235,21 +236,7 @@ function Home(){
                 <h3 className="top-selling" style={{textAlign:'center'}}>Top Selling of the Week</h3>
             </div>
             <Carousel />
-            <div className="row admire-buttons">
-                <button className="admiration-buttons col-3">
-                    <img src={safe}/><br/>
-                    Safe and Secure <br/> Checkout
-                </button>
-                <button className="admiration-buttons col-3">
-                    <img src={exchange}/><br/>
-                    NO-HASSLE <br/>
-                    RETURNS AND EXCHANGES
-                </button>
-                <button className="admiration-buttons col-3">
-                    <img src={satisfaction}/><br/>
-                    100% SATISFACTION <br/> GUARANTEED
-                </button>
-            </div>
+            <Admiration />
             <Footer />
         </div>
     );

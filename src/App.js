@@ -6,18 +6,17 @@ import {
   Redirect,
 } from "react-router-dom";
 import home from "./components/home.js";
-import navbar from "./components/navbar.js";
-import footer from "./components/footer.js";
-import product from "./components/product.js";
+import productPage from "./components/productPage.js";
+import cart from "./components/cart.js";
 function App() {
   return (
     <div>
       <Router>
         <Switch>
           <Route exact path="/" component={home} />
-          <Route path="/navbar" component={navbar} />
-          <Route path="/footer" component={footer} />
-          <Route path="/product" component={product} />
+          <Route path="/productPage" component={productPage} />
+          <Route path="/cart" component={cart} />
+          {/* <Route path="/productPage/:productId" component={productPage} /> */}
         </Switch>
       </Router>
     </div>

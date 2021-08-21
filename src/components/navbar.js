@@ -1,6 +1,8 @@
 import react from "react";
 import styles from "../stylesheets/navbar.css";
 
+
+
 import { FaFacebookF } from 'react-icons/fa';
 import { IoLogoWhatsapp } from 'react-icons/io';
 import { RiTwitterFill } from 'react-icons/ri';
@@ -8,11 +10,7 @@ import { RiInstagramFill } from 'react-icons/ri';
 import { IoIosCall } from 'react-icons/io';
 import {BsSearch} from 'react-icons/bs';
 
-import accessoriesActive from "../icons/accessories-active.svg";
-import activewearActive from "../icons/activewear-active.svg";
-import bottomwearActive from "../icons/bottomwear-active.svg";
-import topwearActive from "../icons/topwear-active.svg";
-import collectablesActive from "../icons/collectables-active.svg";
+
 import cart from "../icons/cart.svg";
 
 const availableCatagories = [
@@ -100,13 +98,6 @@ function Navbar(){
                     </div>
                 </div>
             </nav>
-            <div className="third-navbar">
-                <span className="third-navbar-spans"><img src={activewearActive}/> Active Wear</span> <span className="vertical"></span>
-                <span className="third-navbar-spans"><img src={topwearActive}/> Top Wear</span><span className="vertical"></span>
-                <span className="third-navbar-spans"><img src={bottomwearActive}/> Bottom Wear</span><span className="vertical"></span>
-                <span className="third-navbar-spans"><img src={accessoriesActive}/> Accessories</span><span className="vertical"></span>
-                <span className="third-navbar-spans"><img src={collectablesActive}/> Collectibles</span>
-            </div>
         </div>
     );
 }
