@@ -11,10 +11,23 @@
     font-weight: bold;
 }
 
+.product-div
+{
+    /* margin-left: 5%; */
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.category-div
+{
+    display: flex;
+    justify-content: space-evenly;
+}
+
 .product-card
 {
     width: 18rem;
-    margin-left: 3.5%;
+    /* margin-left: 3.5%; */
     margin-bottom: 2%;
     margin-top: 2%;
     background: #FFFDFE;

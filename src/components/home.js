@@ -185,7 +185,7 @@ function Home(){
                 <button id="landing-2" value={2} onClick={(e) => {handleClick2(e)}} className={typeOfProducts===2 ? "landing-page-button landing-page-red col" : "landing-page-button col"} > Featured Products</button>
                 <button id="landing-3" value={3} onClick={(e) => {handleClick3(e)}} className={typeOfProducts===3 ? "landing-page-button landing-page-red col" : "landing-page-button col"} >Best Selling </button>
             </div>
-            <div className="row">
+            <div className="row product-div">
                 {featured ? renderFeatured(): renderLatest()}
             </div>
             <hr />
@@ -200,7 +200,7 @@ function Home(){
                     })}
                 </ul>
             </div>
-            <div className="row">
+            <div className="row category-div">
                 {renderCategoryData()}
             </div>
             <div className="pagination-btns" key={categoryData?.length}>
