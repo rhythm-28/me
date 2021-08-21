@@ -12,7 +12,7 @@ import Carousel from "./carousel.js";
 
 function Home(){
     
-    const limit = 3;
+    const limit = 2;
     const [pageno,setPageno] = useState(1);
     const [featured,setFeatured] = useState(false);
     
@@ -23,6 +23,8 @@ function Home(){
     const [categoryData,setCategoryData] = useState(null);
     const [data,setData] =  useState(null);
     const [selectedCategory,setSelectedCategory] = useState('all');
+
+    const [clickedBtn,setClickedBtn] = useState(1);
 
     useEffect(()=>{
         axios.get("https://modcrew-dev.herokuapp.com/api/v1/products")
@@ -137,7 +139,6 @@ function Home(){
         if(categoryData?.length>0){
             let noOfPages = 0;
             noOfPages = Math.ceil(categoryData.length/limit);
-            //console.log("categoryData.length",categoryData.length,"limit",limit,"nop",noOfPages,"currentpage",pageno);
 
             var pagination = [];
             for(var i=1;i<=noOfPages;i++){
@@ -202,7 +203,7 @@ function Home(){
             <div className="row">
                 {renderCategoryData()}
             </div>
-            <div className="row d-flex" key={categoryData?.length}>
+            <div className="pagination-btns" key={categoryData?.length}>
                 {makingPaginationButtons()}
             </div>
             <div>
