@@ -13,7 +13,6 @@
 
 .product-div
 {
-    /* margin-left: 5%; */
     display: flex;
     justify-content: space-evenly;
 }
