@@ -20,7 +20,7 @@ function Product(props){
             <div className="card product-card col-3">
                 <div onMouseOver={()=>mouseHoverEffect(props.id)} onMouseOut={()=>mouseOutEffect(props.id)}>
                     <div className="hover-div-btns d-none" id={`hover-${props.id}`}>
-                        <Link to={"/productPage"}><button className="landing-page-button"><img className="hover-btns view-btn" src={view} /></button></Link>
+                        <Link to={`/productPage/${props.id}`}><button className="landing-page-button"><img className="hover-btns view-btn" src={view} /></button></Link>
                         <Link to={"/cart"}><button className="landing-page-button"><img className="hover-btns cart-btn" src={cart} /></button></Link>
                         {/* <Link to={`/productPage/${props.id}`}><button className="landing-page-button"><img className="hover-btns" src={view} /></button></Link> */}
                         {/* <button className="landing-page-button"><img className="hover-btns" src={view} /></button>
