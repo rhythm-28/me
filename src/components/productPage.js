@@ -1,12 +1,13 @@
 import react, { useEffect, useState } from "react";
 import styles from "../stylesheets/productPage.css";
+import axios from "axios";
 
 import Navbar from "./navbar.js";
 import Footer from "./footer.js";
 import Admiration from "./admiration.js";
 import ThirdNavbar from "./ThirdNavbar.js";
 import ProductInfo from "./productInfo.js";
-import axios from "axios";
+import Product from "./product.js";
 
 function ProductPage(props){
 
@@ -19,19 +20,47 @@ function ProductPage(props){
             .then((response)=>{
                 const fetchedProductData = response.data.data;
                 setProductData(fetchedProductData);
+                const category = productData?.category[0];
+                console.log("category",category);
+                axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products/?category=${category}`)
+                .then((response)=>{
+                    const similarCategoryProducts = response.data.data;
+                    console.log("similar",similarCategoryProducts);
+                    setSimilarProducts(similarCategoryProducts);
+                });
             });
-    },[productData]);
+    },[]);
 
-    useEffect(()=>{
-        const category = productData?.category[0];
-        console.log(category);
-        axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products/?category=${category}`)
-            .then((response)=>{
-                const similarCategoryProducts = response.data.data;
-                console.log(similarCategoryProducts);
-                setProductData(similarCategoryProducts);
-            });
-    });
+    // useEffect(()=>{
+    //     const category = productData?.category[0];
+    //     console.log("category",category);
+    //     axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products/?category=${category}`)
+    //         .then((response)=>{
+    //             const similarCategoryProducts = response.data.data;
+    //             console.log("similar",similarCategoryProducts);
+    //             setSimilarProducts(similarCategoryProducts);
+    //         });
+    // },[]);
+
+    function renderSimilar(){
+        if(similarProducts!==null){
+            return similarProducts.map((product)=>{
+                if(product._id!==productData._id)
+                {
+                    return (
+                        <Product 
+                            id={product._id}
+                            avgRating={product.avgRating} 
+                            title={product.title} 
+                            sellingPrice={product.sellingPrice}
+                            mrp={product.mrp}
+                            img={product.images[0]}
+                        /> 
+                    );
+                } 
+            })
+        }
+    }
 
     return (
         <div className="productPage">
@@ -53,7 +82,10 @@ function ProductPage(props){
             </div>
             <hr />
             <h2 style={{textAlign:'center'}}>Similar Products</h2>
-
+            <div className="row product-div">
+            {/* {similarProducts && renderSimilar()} */}
+                {renderSimilar()}
+            </div>
             <Admiration />
             <Footer />
         </div>
