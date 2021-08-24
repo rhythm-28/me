@@ -153,8 +153,26 @@
     color: #ffffff;
     font-size: 12px;
     font-weight: bold;
-    padding: 15px 30px;
+    padding: 1px 40px;
     letter-spacing: 1px;
     text-transform: uppercase;
     margin-left: 7px;
+}
+
+.use-coupon
+{
+    font-size: 80%;
+}
+
+.coupon-code
+{
+    font-size: 180%;
+}
+
+.coupon-code-copy
+{
+    position: absolute;
+    left: 68.5%;
+    border-radius: 50px 0px 50px 50px;
+    height: 9vh;
 }

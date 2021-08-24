@@ -5,9 +5,12 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
+
 import home from "./components/home.js";
 import productPage from "./components/productPage.js";
 import cart from "./components/cart.js";
+
+import about from "./components/about.js";
 import VerticalCarousel from "./components/verticalCarousel.js";
 
 function App() {
@@ -17,6 +20,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={home} />
           <Route path="/productPage/:productId" component={productPage} />
+          <Route path="/about" component={about} />
           <Route path="/cart" component={cart} />
           <Route path="/verticalCarousel" component={VerticalCarousel} />
         </Switch>

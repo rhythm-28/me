@@ -5,6 +5,11 @@ import call from "../icons/call.svg";
 import location from "../icons/location.svg";
 import mail from "../icons/mail.svg";
 
+import { FaFacebookF } from 'react-icons/fa';
+import { IoLogoWhatsapp } from 'react-icons/io';
+import { RiTwitterFill } from 'react-icons/ri';
+import { RiInstagramFill } from 'react-icons/ri';
+
 function Footer(){
     return (
         <div>
@@ -50,17 +55,14 @@ function Footer(){
                 </div>
                 <div className="col-2 footer-lists">
                     <h6> Connect @</h6>
-                    <ul>
-                        <li><a href="">Facebook</a></li>
-                        <li><a href="">Facebook</a></li>
-                        <li><a href="">Facebook</a></li>
-                        <li><a href="">Facebook</a></li>
-                    </ul>
+                    <FaFacebookF size={20}className="white-color"/><a href=""> Facebook</a><br />
+                    <IoLogoWhatsapp size={20} className="white-color"/><a href=""> Whatsapp</a><br />
+                    <RiTwitterFill size={20} className="white-color"/><a href=""> Twitter</a><br />
+                    <RiInstagramFill size={20} className="white-color"/><a href=""> Instagram</a>
                 </div>
             </div>
             <div className="second-footer">
-                <p>Copywright @ 2021,Tuner Cult.All rights reserved.</p>
-                <p>Often Imitated. Never duplicated.</p>
+                <p>Copywright @ 2021, Webure. All rights reserved.</p>
             </div>
         </div>
     );

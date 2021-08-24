@@ -11,6 +11,9 @@ import cover from "../stylesheets/images/cover.jpg";
 import Footer from "./footer.js";
 import Product from "./product.js";
 import Carousel from "./carousel.js";
+import offer from "../stylesheets/images/offer.jpg";
+
+import { IoMdCopy } from 'react-icons/io';
 
 function Home(){
     
@@ -116,7 +119,7 @@ function Home(){
             return specificCategoryData?.map((product)=>{ 
                 return (
                     <Product 
-                        id={product._id}
+                        id={product._id+"2"}
                         avgRating={product.avgRating} 
                         title={product.title} 
                         sellingPrice={product.sellingPrice}
@@ -162,6 +165,26 @@ function Home(){
         return pagination;
     }
 
+    function mouseOverEffectCoupon(id){
+        const element = document.getElementById(`coupon-copy-btn-${id}`);
+        element.classList.remove("d-none");
+    }
+
+    function mouseOutEffectCoupon(id){
+        const element = document.getElementById(`coupon-copy-btn-${id}`);
+        element.classList.add("d-none");
+    }
+
+    function handleOverHover(id){
+        const element = document.getElementById(`coupon-copy-btn-${id}`);
+        element.classList.remove("d-none");
+    }
+
+    function handleOutHover(id){
+        const element = document.getElementById(`coupon-copy-btn-${id}`);
+        element.classList.add("d-none");
+    }
+
     const availableCatagories = [
         'collectibles',
         'diary',
@@ -189,15 +212,22 @@ function Home(){
         <div>
             <Navbar />
             <ThirdNavbar />
-            <img className="cover-img" src={cover} />
+            <Carousel 
+                id={1}
+                img1={cover}
+                img2={coupon1}
+                img3={coupon2}
+            />
             <div className="row">
                 <div className="col-6 content">
                     <img className="col-12 sale-img" src={coupon1} />
-                    <button className="coupon-btns">Use Coupon <br/>L657YUOP</button>
+                    <button className="coupon-btns" onMouseOver={()=>mouseOverEffectCoupon(1)} onMouseOut={()=>mouseOutEffectCoupon(1)}><span className="use-coupon">Use Coupon </span><br/><span className="coupon-code">L657YUOP</span></button>
+                    <button onMouseOver={()=>{handleOverHover(1)}} onMouseOut={()=>{handleOutHover(1)}} id="coupon-copy-btn-1" className="coupon-code-copy d-none"><IoMdCopy size={25} style={{color:'#EE0405'}}/></button>
                 </div>
                 <div className="col-6 content">
                     <img className="col-12 sale-img" src={coupon2} />
-                    <button className="coupon-btns">Use Coupon <br/>L657YUOP</button>
+                    <button className="coupon-btns" onMouseOver={()=>mouseOverEffectCoupon(2)} onMouseOut={()=>mouseOutEffectCoupon(2)}><span className="use-coupon">Use Coupon </span><br/><span className="coupon-code">L657YUOP</span></button>
+                    <button onMouseOver={()=>{handleOverHover(2)}} onMouseOut={()=>{handleOutHover(2)}} id="coupon-copy-btn-2" className="coupon-code-copy d-none"><IoMdCopy size={25} style={{color:'#EE0405'}}/></button>
                 </div>
             </div>
             <div className="row landing-buttons-tray">
@@ -226,6 +256,9 @@ function Home(){
                     })}
                 </ul>
             </div>
+            <div>
+
+            </div>
             <div className="row category-div">
                 {renderCategoryData()}
             </div>
@@ -235,7 +268,12 @@ function Home(){
             <div>
                 <h3 className="top-selling" style={{textAlign:'center'}}>Top Selling of the Week</h3>
             </div>
-            <Carousel />
+            <Carousel 
+                id={2}
+                img1={offer}
+                img2={coupon1}
+                img3={coupon2}
+            />
             <Admiration />
             <Footer />
         </div>

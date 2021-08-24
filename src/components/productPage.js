@@ -29,7 +29,7 @@ function ProductPage(props){
         axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products/?category=${category}`)
             .then((response)=>{
                 const similarCategoryProducts = response.data.data;
-                console.log("similar",similarCategoryProducts);
+                // console.log("similar",similarCategoryProducts);
                 setSimilarProducts(similarCategoryProducts);
             });
     },[productData]);
@@ -75,7 +75,6 @@ function ProductPage(props){
             <hr />
             <h2 style={{textAlign:'center'}}>Similar Products</h2>
             <div className="row product-div">
-            {/* {similarProducts && renderSimilar()} */}
                 {renderSimilar()}
             </div>
             <Admiration />

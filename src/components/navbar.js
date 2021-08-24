@@ -1,15 +1,13 @@
 import react from "react";
 import styles from "../stylesheets/navbar.css";
 
-
-
 import { FaFacebookF } from 'react-icons/fa';
 import { IoLogoWhatsapp } from 'react-icons/io';
 import { RiTwitterFill } from 'react-icons/ri';
 import { RiInstagramFill } from 'react-icons/ri';
 import { IoIosCall } from 'react-icons/io';
 import {BsSearch} from 'react-icons/bs';
-
+import {AiOutlineHeart} from 'react-icons/ai';
 
 import cart from "../icons/cart.svg";
 
@@ -48,9 +46,9 @@ function Navbar(){
                         <a className="navbar-brand logo" href="#"></a>
                         <div className="main-div">
                             <div className="row upper-navbar">
-                                <ul className="navbar-nav col me-auto mb-2 mb-lg-0">
+                                <ul className="navbar-nav col-6 me-auto ">
                                     <li className="nav-item upper-nav-list">
-                                        <a className="nav-link active" aria-current="page" href="#">Home</a>
+                                        <a className="nav-link active" aria-current="page" href="/">Home</a>
                                     </li>
                                     <li className="nav-item upper-nav-list">
                                         <a className="nav-link" href="#">Winners List</a>
@@ -59,18 +57,18 @@ function Navbar(){
                                         <a className="nav-link" href="#">Contact Us</a>
                                     </li>
                                     <li className="nav-item upper-nav-list">
-                                        <a className="nav-link" href="#">About</a>
+                                        <a className="nav-link" href="/about">About</a>
                                     </li>
                                     <li className="nav-item upper-nav-list">
                                         <a className="nav-link" href="#">Help</a>
                                     </li>
                                 </ul>
                                 <div className="col social-icons">
-                                    <button><FaFacebookF size={25}className="white-color"/></button>
-                                    <button><IoLogoWhatsapp size={25} className="white-color"/></button>
-                                    <button><RiTwitterFill size={25} className="white-color"/></button>
-                                    <button><RiInstagramFill size={25} className="white-color"/></button>
-                                    <button><IoIosCall size={25} className="white-color"/></button>
+                                    <button><FaFacebookF size={20}className="white-color"/></button>
+                                    <button><IoLogoWhatsapp size={20} className="white-color"/></button>
+                                    <button><RiTwitterFill size={20} className="white-color"/></button>
+                                    <button><RiInstagramFill size={20} className="white-color"/></button>
+                                    <button><IoIosCall size={20} className="white-color"/></button>
                                     <button className="login-btn">Login/Signup</button>
                                 </div>
                             </div>
@@ -90,7 +88,7 @@ function Navbar(){
                                     <button className="search-btn" type="submit">Search<BsSearch size={15} className="white-color"/></button>
                                 </form>
                                 <div className="button-tray">
-                                    <button className="navbar-buttons"><i class="far fa-heart"></i></button>
+                                    <button className="navbar-buttons"><AiOutlineHeart size={25} className="white-color"/></button>
                                     <button className="navbar-buttons"><img src={cart} /> Cart(0)</button>
                                 </div>
                             </div>

@@ -1,7 +1,7 @@
 import react from "react";
 
 import accessoriesActive from "../icons/accessories-active.svg";
-import activewearActive from "../icons/activewear-active.svg";
+import activewearActive from "../icons/activewear-inactive.svg";
 import bottomwearActive from "../icons/bottomwear-active.svg";
 import topwearActive from "../icons/topwear-active.svg";
 import collectablesActive from "../icons/collectables-active.svg";
