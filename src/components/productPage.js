@@ -20,27 +20,19 @@ function ProductPage(props){
             .then((response)=>{
                 const fetchedProductData = response.data.data;
                 setProductData(fetchedProductData);
-                const category = productData?.category[0];
-                console.log("category",category);
-                axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products/?category=${category}`)
-                .then((response)=>{
-                    const similarCategoryProducts = response.data.data;
-                    console.log("similar",similarCategoryProducts);
-                    setSimilarProducts(similarCategoryProducts);
-                });
             });
     },[]);
 
-    // useEffect(()=>{
-    //     const category = productData?.category[0];
-    //     console.log("category",category);
-    //     axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products/?category=${category}`)
-    //         .then((response)=>{
-    //             const similarCategoryProducts = response.data.data;
-    //             console.log("similar",similarCategoryProducts);
-    //             setSimilarProducts(similarCategoryProducts);
-    //         });
-    // },[]);
+    useEffect(()=>{
+        const category = productData?.category[0];
+        console.log("category",category);
+        axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products/?category=${category}`)
+            .then((response)=>{
+                const similarCategoryProducts = response.data.data;
+                console.log("similar",similarCategoryProducts);
+                setSimilarProducts(similarCategoryProducts);
+            });
+    },[productData]);
 
     function renderSimilar(){
         if(similarProducts!==null){

@@ -8,6 +8,8 @@ import {
 import home from "./components/home.js";
 import productPage from "./components/productPage.js";
 import cart from "./components/cart.js";
+import VerticalCarousel from "./components/verticalCarousel.js";
+
 function App() {
   return (
     <div>
@@ -16,7 +18,7 @@ function App() {
           <Route exact path="/" component={home} />
           <Route path="/productPage/:productId" component={productPage} />
           <Route path="/cart" component={cart} />
-          {/* <Route path="/productPage/:productId" component={productPage} /> */}
+          <Route path="/verticalCarousel" component={VerticalCarousel} />
         </Switch>
       </Router>
     </div>
