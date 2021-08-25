@@ -89,6 +89,7 @@ function Home(){
                         sellingPrice={product.sellingPrice}
                         mrp={product.mrp}
                         img={product.images[0]}
+                        productId = {product._id}
                     /> 
                 );
             })
@@ -107,6 +108,7 @@ function Home(){
                             sellingPrice={product.sellingPrice}
                             mrp={product.mrp}
                             img={product.images[0]}
+                            productId = {product._id}
                         /> 
                     );
                 } 
@@ -116,6 +118,7 @@ function Home(){
 
     function renderCategoryData(){
         if(categoryData!==null){
+            console.log("specificCategoryData",specificCategoryData);
             return specificCategoryData?.map((product)=>{ 
                 return (
                     <Product 
@@ -125,30 +128,31 @@ function Home(){
                         sellingPrice={product.sellingPrice}
                         mrp={product.mrp}
                         img={product.images[0]}
+                        productId = {product._id}
                     /> 
                 );
             })
         }
     }
 
-    function handleCategoryClick(category){
-        setPageno(1);
-        setCategoryData([]);
-        if(category==='all'){
-            setSelectedCategory("all");
-            axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products`)
-            .then((response)=>{
-                setCategoryData(response.data.data);
-            });
-        }
-        else{
-            setSelectedCategory(category);
-            axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products?category=${category}`)
-            .then((response)=>{
-                setCategoryData(response.data.data);
-            });
-        }
-    }
+    // function handleCategoryClick(category){
+    //     setPageno(1);
+    //     setCategoryData([]);
+    //     if(category==='all'){
+    //         setSelectedCategory("all");
+    //         axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products`)
+    //         .then((response)=>{
+    //             setCategoryData(response.data.data);
+    //         });
+    //     }
+    //     else{
+    //         setSelectedCategory(category);
+    //         axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products?category=${category}`)
+    //         .then((response)=>{
+    //             setCategoryData(response.data.data);
+    //         });
+    //     }
+    // }
 
     function makingPaginationButtons(){
         if(categoryData?.length>0){
@@ -344,7 +348,7 @@ function Home(){
                 </div>
                 <button onClick={()=>{handleFilterBtn()}} className="filter-btn">Filter</button>
             </div>
-            <div className="row category-div">
+            <div className="row product-div">
                 {renderCategoryData()}
             </div>
             <div className="pagination-btns" key={categoryData?.length}>

@@ -59,7 +59,7 @@ function Navbar(){
                                     </li>
                                     <li className="nav-item upper-nav-list">
                                         {/* <Link to={"/about"}> About</Link> */}
-                                        <a className="nav-link" href="/about">About</a>
+                                        <a className="nav-link" href="./about">About</a>
                                     </li>
                                     <li className="nav-item upper-nav-list">
                                         <a className="nav-link" href="#">Help</a>

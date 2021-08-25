@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 
 import home from "./components/home.js";
+import login from "./components/login.js";
 import productPage from "./components/productPage.js";
 import cart from "./components/cart.js";
 
@@ -21,6 +22,7 @@ function App() {
           <Route exact path="/" component={home} />
           <Route path="/productPage/:productId" component={productPage} />
           <Route path="/about" component={about} />
+          <Route path="/login" component={login} />
           <Route path="/cart" component={cart} />
           <Route path="/verticalCarousel" component={VerticalCarousel} />
         </Switch>
