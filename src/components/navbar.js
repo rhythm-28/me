@@ -1,4 +1,5 @@
 import react from "react";
+import {Link} from "react-router-dom";
 import styles from "../stylesheets/navbar.css";
 
 import { FaFacebookF } from 'react-icons/fa';
@@ -57,6 +58,7 @@ function Navbar(){
                                         <a className="nav-link" href="#">Contact Us</a>
                                     </li>
                                     <li className="nav-item upper-nav-list">
+                                        {/* <Link to={"/about"}> About</Link> */}
                                         <a className="nav-link" href="/about">About</a>
                                     </li>
                                     <li className="nav-item upper-nav-list">

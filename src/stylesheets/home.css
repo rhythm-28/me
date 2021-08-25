@@ -176,3 +176,31 @@
     border-radius: 50px 0px 50px 50px;
     height: 9vh;
 }
+
+.all-categories
+{
+    margin-left: 25vw;
+    background-color: #EE0405;
+    width: 50vw;
+}
+
+.all-categories label
+{
+    margin-left: 2vw;
+}
+
+.all-categories input
+{
+    margin-left: 0.5vw;
+}
+
+.sub-category-div
+{
+    margin-top: 3%;
+}
+
+.filter-btn
+{
+    margin-left: 44%;
+    margin-top: 3%;
+}

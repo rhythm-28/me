@@ -208,6 +208,48 @@ function Home(){
         'bag'
     ]
 
+    function handleSubCategoryClick(category){
+        setSelectedCategory(category);
+            axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products?category=${category}`)
+            .then((response)=>{
+                setCategoryData(response.data.data);
+            });
+    }
+
+    var selectedSubCategories = [];
+
+    function handleCheckboxCLick(e){
+        console.log(selectedSubCategories);
+        const checkBox = e.target;
+        const subcategory = checkBox.value;
+        if (checkBox.checked == true){
+            selectedSubCategories.push(subcategory);
+        }
+        else{
+            selectedSubCategories = selectedSubCategories.filter(function(item) {
+                return item !== subcategory;
+            })
+        }
+        console.log(selectedSubCategories);
+    }
+
+    function handleFilterBtn(){
+        
+        var categoriesForApi = ""; 
+        selectedSubCategories.forEach((i,idx)=>{
+            if(idx===selectedSubCategories.length-1){
+                categoriesForApi = categoriesForApi + i;
+            }
+            else{
+                categoriesForApi = categoriesForApi + i + ",";
+            }
+            
+        });
+        console.log(categoriesForApi);
+        handleSubCategoryClick(categoriesForApi);
+        setCurrentCategory(categoriesForApi);
+    }
+
     return (
         <div>
             <Navbar />
@@ -239,7 +281,7 @@ function Home(){
                 {featured ? renderFeatured(): renderLatest()}
             </div>
             <hr />
-            <div class="dropdown">
+            {/* <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle select-categories-btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                         {currentCategory}
                 </button>
@@ -255,9 +297,52 @@ function Home(){
                         }} className="dropdown-item" >{category}</button></li>);
                     })}
                 </ul>
-            </div>
-            <div>
-
+            </div> */}
+            <div className="all-categories">
+                <div className="sub-category-div">
+                    <h3>Active Wear</h3>
+                        <label for="jogger">Jogger</label>
+                        <input type="checkbox" id="jogger" name="vehicle1" value="jogger" onClick={(e)=>{handleCheckboxCLick(e)}}/>
+                        <label for="jersey">Jersey</label>
+                        <input type="checkbox" id="jersey" name="vehicle1" value="jersey" onClick={(e)=>{handleCheckboxCLick(e)}}/>
+                </div>
+                <div className="sub-category-div">
+                    <h3>Top Wear</h3>
+                        <label for="henley">Henley</label>
+                        <input type="checkbox" id="henley" name="vehicle1" value="henley" onClick={(e)=>{handleCheckboxCLick(e)}}/>
+                        <label for="crop-top">Crop-top</label>
+                        <input type="checkbox" id="crop-top" name="vehicle1" value="crop-top" onClick={(e)=>{handleCheckboxCLick(e)}} onClick={(e)=>{handleCheckboxCLick(e)}} />
+                        <label for="round-neck">Round-neck</label>
+                        <input type="checkbox" id="round-neck" name="vehicle1" value="round-neck" onClick={(e)=>{handleCheckboxCLick(e)}} />
+                </div>
+                <div className="sub-category-div">
+                    <h3>Accessories</h3>
+                        <label for="cap">Cap</label>
+                        <input type="checkbox" id="cap" name="vehicle1" value="cap" onClick={(e)=>{handleCheckboxCLick(e)}}/>
+                        <label for="bag">Bag</label>
+                        <input type="checkbox" id="bag" name="vehicle1" value="bag"  onClick={(e)=>{handleCheckboxCLick(e)}}/>
+                        <label for="bandana">Bandana</label>
+                        <input type="checkbox" id="bandana" name="vehicle1" value="bandana"  onClick={(e)=>{handleCheckboxCLick(e)}}/>
+                </div>
+                <div className="sub-category-div">
+                    <h3>Bottom Wear</h3>
+                        <label for="shorts">Shorts</label>
+                        <input type="checkbox" id="shorts" name="vehicle1" value="shorts" onClick={(e)=>{handleCheckboxCLick(e)}}/>
+                </div>
+                <div className="sub-category-div">
+                    <h3>Collectibles</h3>
+                        <label for="diary">Diary</label>
+                        <input type="checkbox" id="diary" name="vehicle1" value="diary" onClick={(e)=>{handleCheckboxCLick(e)}}/>
+                        <label for="sticker">Sticker</label>
+                        <input type="checkbox" id="sticker" name="vehicle1" value="sticker" onClick={(e)=>{handleCheckboxCLick(e)}} />
+                        <label for="badge">Badge</label>
+                        <input type="checkbox" id="badge" name="vehicle1" value="badge" onClick={(e)=>{handleCheckboxCLick(e)}} />
+                        <label for="key-chain">Key-chain</label>
+                        <input type="checkbox" id="key-chain" name="vehicle1" value="key-chain" onClick={(e)=>{handleCheckboxCLick(e)}} />
+                        <label for="poster">Poster</label>
+                        <input type="checkbox" id="posterd" name="vehicle1" value="poster" onClick={(e)=>{handleCheckboxCLick(e)}} />
+                </div>
+                <button onClick={()=>{handleFilterBtn()}} className="filter-btn">Filter</button>
             </div>
             <div className="row category-div">
                 {renderCategoryData()}
