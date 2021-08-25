@@ -8,7 +8,9 @@ import {
 
 import home from "./components/home.js";
 import login from "./components/login.js";
+import signup from "./components/signup.js";
 import productPage from "./components/productPage.js";
+import topSellingCarousel from "./components/topSellingCarousel.js";
 import cart from "./components/cart.js";
 
 import about from "./components/about.js";
@@ -23,6 +25,8 @@ function App() {
           <Route path="/productPage/:productId" component={productPage} />
           <Route path="/about" component={about} />
           <Route path="/login" component={login} />
+          <Route path="/signup" component={signup} />
+          <Route path="/topSellingCarousel" component={topSellingCarousel} />
           <Route path="/cart" component={cart} />
           <Route path="/verticalCarousel" component={VerticalCarousel} />
         </Switch>

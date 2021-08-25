@@ -64,6 +64,7 @@ function ProductPage(props){
                 </div>
                 <div className="col description-div">
                     <ProductInfo 
+                        id={productData?._id}
                         title={productData?.title}
                         sellingPrice={productData?.sellingPrice}
                         images={productData?.images}

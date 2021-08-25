@@ -39,7 +39,10 @@ function getLoginPage(){
     window.location.href="/login";
 }
 
-function Navbar(){
+function Navbar(props){
+
+    // const {cartQuantity} = props;
+
     return (
         <div>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -95,7 +98,7 @@ function Navbar(){
                                 </form>
                                 <div className="button-tray">
                                     <button className="navbar-buttons"><AiOutlineHeart size={25} className="white-color"/></button>
-                                    <button className="navbar-buttons"><img src={cart} /> Cart(0)</button>
+                                    <button className="navbar-buttons"><img src={cart} /> Cart(0))</button>
                                 </div>
                             </div>
                         </div>

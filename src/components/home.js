@@ -19,8 +19,7 @@ function Home(){
     
     const limit = 2;
     const [pageno,setPageno] = useState(1);
-    const [featured,setFeatured] = useState(false);
-    
+
     const [typeOfProducts,setTypeOfProducts] = useState(1);
 
     const [specificCategoryData,setSpecificCategoryData] = useState(null);
@@ -32,6 +31,8 @@ function Home(){
     const [clickedBtn,setClickedBtn] = useState(1);
     
     const [currentCategory,setCurrentCategory] = useState('Select Category');
+
+    // const [cartQuantity,setCartQuantity] = useState(0);
 
     useEffect(()=>{
         axios.get("https://modcrew-dev.herokuapp.com/api/v1/products")
@@ -65,16 +66,17 @@ function Home(){
     },[pageno]);
 
     function handleClick1(e){
-        setFeatured(false);
+        // setFeatured(false);
         setTypeOfProducts(1);
     }
 
     function handleClick2(){
-        setFeatured(true);
+        // setFeatured(true);
         setTypeOfProducts(2);
     }
 
     function handleClick3(){
+        // setFeatured(false);
         setTypeOfProducts(3);
     }
 
@@ -90,6 +92,7 @@ function Home(){
                         mrp={product.mrp}
                         img={product.images[0]}
                         productId = {product._id}
+                        // cartQuantity = {cartQuantity}
                     /> 
                 );
             })
@@ -109,6 +112,28 @@ function Home(){
                             mrp={product.mrp}
                             img={product.images[0]}
                             productId = {product._id}
+                            // cartQuantity = {cartQuantity}
+                        /> 
+                    );
+                } 
+            })
+        }
+    }
+
+    function renderBestSelling(){
+        if(data!==null){
+            return data.map((product)=>{
+                if(product.isBestSelling===true){
+                    return (
+                        <Product 
+                            id={product._id}
+                            avgRating={product.avgRating} 
+                            title={product.title} 
+                            sellingPrice={product.sellingPrice}
+                            mrp={product.mrp}
+                            img={product.images[0]}
+                            productId = {product._id}
+                            // cartQuantity = {cartQuantity}
                         /> 
                     );
                 } 
@@ -129,30 +154,12 @@ function Home(){
                         mrp={product.mrp}
                         img={product.images[0]}
                         productId = {product._id}
+                        // cartQuantity = {cartQuantity}
                     /> 
                 );
             })
         }
     }
-
-    // function handleCategoryClick(category){
-    //     setPageno(1);
-    //     setCategoryData([]);
-    //     if(category==='all'){
-    //         setSelectedCategory("all");
-    //         axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products`)
-    //         .then((response)=>{
-    //             setCategoryData(response.data.data);
-    //         });
-    //     }
-    //     else{
-    //         setSelectedCategory(category);
-    //         axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products?category=${category}`)
-    //         .then((response)=>{
-    //             setCategoryData(response.data.data);
-    //         });
-    //     }
-    // }
 
     function makingPaginationButtons(){
         if(categoryData?.length>0){
@@ -256,7 +263,9 @@ function Home(){
 
     return (
         <div>
-            <Navbar />
+            <Navbar 
+                // cartQuantity = {cartQuantity}
+            />
             <ThirdNavbar />
             <Carousel 
                 id={1}
@@ -282,57 +291,47 @@ function Home(){
                 <button id="landing-3" value={3} onClick={(e) => {handleClick3(e)}} className={typeOfProducts===3 ? "landing-page-button landing-page-red col" : "landing-page-button col"} >Best Selling </button>
             </div>
             <div className="row product-div">
-                {featured ? renderFeatured(): renderLatest()}
+                {typeOfProducts===1 && renderLatest()}
+                {typeOfProducts===2 && renderFeatured()}
+                {typeOfProducts===3 && renderBestSelling()}
             </div>
             <hr />
-            {/* <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle select-categories-btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        {currentCategory}
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><button onClick={()=>{
-                        handleCategoryClick("all");
-                        setCurrentCategory('Select Category');
-                    }} className="dropdown-item" >All products</button></li>
-                    {availableCatagories.map((category)=>{
-                        return (<li><button onClick={()=>{
-                            handleCategoryClick(category);
-                            setCurrentCategory(category);
-                        }} className="dropdown-item" >{category}</button></li>);
-                    })}
-                </ul>
-            </div> */}
-            <div className="all-categories">
-                <div className="sub-category-div">
-                    <h3>Active Wear</h3>
-                        <label for="jogger">Jogger</label>
-                        <input type="checkbox" id="jogger" name="vehicle1" value="jogger" onClick={(e)=>{handleCheckboxCLick(e)}}/>
-                        <label for="jersey">Jersey</label>
-                        <input type="checkbox" id="jersey" name="vehicle1" value="jersey" onClick={(e)=>{handleCheckboxCLick(e)}}/>
-                </div>
-                <div className="sub-category-div">
-                    <h3>Top Wear</h3>
-                        <label for="henley">Henley</label>
-                        <input type="checkbox" id="henley" name="vehicle1" value="henley" onClick={(e)=>{handleCheckboxCLick(e)}}/>
-                        <label for="crop-top">Crop-top</label>
-                        <input type="checkbox" id="crop-top" name="vehicle1" value="crop-top" onClick={(e)=>{handleCheckboxCLick(e)}} onClick={(e)=>{handleCheckboxCLick(e)}} />
-                        <label for="round-neck">Round-neck</label>
-                        <input type="checkbox" id="round-neck" name="vehicle1" value="round-neck" onClick={(e)=>{handleCheckboxCLick(e)}} />
-                </div>
-                <div className="sub-category-div">
-                    <h3>Accessories</h3>
-                        <label for="cap">Cap</label>
-                        <input type="checkbox" id="cap" name="vehicle1" value="cap" onClick={(e)=>{handleCheckboxCLick(e)}}/>
-                        <label for="bag">Bag</label>
-                        <input type="checkbox" id="bag" name="vehicle1" value="bag"  onClick={(e)=>{handleCheckboxCLick(e)}}/>
-                        <label for="bandana">Bandana</label>
-                        <input type="checkbox" id="bandana" name="vehicle1" value="bandana"  onClick={(e)=>{handleCheckboxCLick(e)}}/>
-                </div>
-                <div className="sub-category-div">
-                    <h3>Bottom Wear</h3>
-                        <label for="shorts">Shorts</label>
-                        <input type="checkbox" id="shorts" name="vehicle1" value="shorts" onClick={(e)=>{handleCheckboxCLick(e)}}/>
-                </div>
+            <div class="dropdown category-dropdown-trnsprnt">
+            <button class="btn btn-secondary dropdown-toggle select-categories-btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                Select categories
+            </button>
+            <ul class="dropdown-menu list-categories" aria-labelledby="dropdownMenuButton1">
+                <div className="all-categories">
+                    <div className="sub-category-div">
+                        <h3>Active Wear</h3>
+                            <label for="jogger">Jogger</label>
+                            <input style={{color:'red'}} type="checkbox" id="jogger" name="vehicle1" value="jogger" onClick={(e)=>{handleCheckboxCLick(e)}}/>
+                            <label for="jersey">Jersey</label>
+                            <input type="checkbox" id="jersey" name="vehicle1" value="jersey" onClick={(e)=>{handleCheckboxCLick(e)}}/>
+                    </div>
+                    <div className="sub-category-div">
+                        <h3>Top Wear</h3>
+                            <label for="henley">Henley</label>
+                            <input type="checkbox" id="henley" name="vehicle1" value="henley" onClick={(e)=>{handleCheckboxCLick(e)}}/>
+                            <label for="crop-top">Crop-top</label>
+                            <input type="checkbox" id="crop-top" name="vehicle1" value="crop-top" onClick={(e)=>{handleCheckboxCLick(e)}} onClick={(e)=>{handleCheckboxCLick(e)}} />
+                            <label for="round-neck">Round-neck</label>
+                            <input type="checkbox" id="round-neck" name="vehicle1" value="round-neck" onClick={(e)=>{handleCheckboxCLick(e)}} />
+                    </div>
+                    <div className="sub-category-div">
+                        <h3>Accessories</h3>
+                            <label for="cap">Cap</label>
+                            <input type="checkbox" id="cap" name="vehicle1" value="cap" onClick={(e)=>{handleCheckboxCLick(e)}}/>
+                            <label for="bag">Bag</label>
+                            <input type="checkbox" id="bag" name="vehicle1" value="bag"  onClick={(e)=>{handleCheckboxCLick(e)}}/>
+                            <label for="bandana">Bandana</label>
+                            <input type="checkbox" id="bandana" name="vehicle1" value="bandana"  onClick={(e)=>{handleCheckboxCLick(e)}}/>
+                    </div>
+                    <div className="sub-category-div">
+                        <h3>Bottom Wear</h3>
+                            <label for="shorts">Shorts</label>
+                            <input type="checkbox" id="shorts" name="vehicle1" value="shorts" onClick={(e)=>{handleCheckboxCLick(e)}}/>
+                    </div>
                 <div className="sub-category-div">
                     <h3>Collectibles</h3>
                         <label for="diary">Diary</label>
@@ -346,7 +345,9 @@ function Home(){
                         <label for="poster">Poster</label>
                         <input type="checkbox" id="posterd" name="vehicle1" value="poster" onClick={(e)=>{handleCheckboxCLick(e)}} />
                 </div>
-                <button onClick={()=>{handleFilterBtn()}} className="filter-btn">Filter</button>
+                <button onClick={()=>{handleFilterBtn()}} className="filter-btn">Apply</button>
+            </div>
+            </ul>
             </div>
             <div className="row product-div">
                 {renderCategoryData()}
@@ -355,7 +356,10 @@ function Home(){
                 {makingPaginationButtons()}
             </div>
             <div>
-                <h3 className="top-selling" style={{textAlign:'center'}}>Top Selling of the Week</h3>
+                <h3 className="top-selling" style={{textAlign:'center',marginTop:'7%'}}>Top Selling of the Week</h3>
+            </div>
+            <div className="row product-div" style={{marginBottom:'3%'}}>
+                {renderBestSelling()}
             </div>
             <Carousel 
                 id={2}

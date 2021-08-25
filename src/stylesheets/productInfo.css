@@ -57,6 +57,7 @@
 .productcolours
 {
     margin-left: 5%;
+    opacity: 0;
 }
 
 .qty-sold
@@ -135,4 +136,10 @@
     display: inline-block;
     margin-top: 5%;
     width: 100%;
+}
+
+.default-size
+{
+    color: white;
+    background-color: #EE0405;
 }

@@ -57,7 +57,7 @@ function Login(){
                     <button onClick={(e)=>{onSubmitLoginForm(e)}} className="sign-in" type="submit">Sign In</button>
                 </form>
             </div>
-            <span className="new-here">New Here! <a href="">Register Now</a></span>
+            <span className="new-here">New Here! <a href="/signup">Register Now</a></span>
             <LoginFooter />
         </div>
     );
