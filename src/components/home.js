@@ -5,13 +5,13 @@ import Admiration from "./admiration.js";
 
 import styles from "../stylesheets/home.css";
 import axios from "axios";
+import offer from "../stylesheets/images/offer.jpg";
 import coupon1 from "../stylesheets/images/coupon1.jpg";
 import coupon2 from "../stylesheets/images/coupon2.jpg";
 import cover from "../stylesheets/images/cover.jpg";
 import Footer from "./footer.js";
 import Product from "./product.js";
 import Carousel from "./carousel.js";
-import offer from "../stylesheets/images/offer.jpg";
 
 import { IoMdCopy } from 'react-icons/io';
 

@@ -10,7 +10,7 @@ function LoginNavbar(){
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-                        <a className="navbar-brand logo-login-navbar" href="#"></a>
+                        <a className="navbar-brand logo-login-navbar" href="/"></a>
                         <div className="main-div">
                             <div className="row upper-navbar">
                                 <ul className="navbar-nav col-6 me-auto ">

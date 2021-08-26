@@ -50,7 +50,7 @@ function Login(){
                         <input id="remember-me" type="checkbox"></input>
                         <label for="remember-me"> Remember Me</label>
                         <span className="forgot-passwd">
-                            <a href="">Forgot Password?</a>
+                            <a href="/forgotPassword">Forgot Password?</a>
                         </span>
                     </span>
                     <br />
