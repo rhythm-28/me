@@ -296,7 +296,7 @@ function Home(){
                 {typeOfProducts===3 && renderBestSelling()}
             </div>
             <hr />
-            <div class="dropdown category-dropdown-trnsprnt">
+            <div id="category-section" class="dropdown category-dropdown-trnsprnt">
             <button class="btn btn-secondary dropdown-toggle select-categories-btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 Select categories
             </button>

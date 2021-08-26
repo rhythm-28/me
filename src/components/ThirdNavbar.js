@@ -11,13 +11,13 @@ function ThirdNavbar(){
         <div className="third-navbar">
             <span className="third-navbar-spans">
                 <img src={activewearActive}/> 
-                Active Wear
+                <a href="#category-section">Active Wear</a>
             </span> 
             <span className="vertical"></span>
-            <span className="third-navbar-spans"><img src={topwearActive}/> Top Wear</span><span className="vertical"></span>
-            <span className="third-navbar-spans"><img src={bottomwearActive}/> Bottom Wear</span><span className="vertical"></span>
-            <span className="third-navbar-spans"><img src={accessoriesActive}/> Accessories</span><span className="vertical"></span>
-            <span className="third-navbar-spans"><img src={collectablesActive}/> Collectibles</span>
+            <span className="third-navbar-spans"><img src={topwearActive}/> <a href="#category-section">Top Wear</a></span><span className="vertical"></span>
+            <span className="third-navbar-spans"><img src={bottomwearActive}/> <a href="#category-section">Bottom Wear</a></span><span className="vertical"></span>
+            <span className="third-navbar-spans"><img src={accessoriesActive}/> <a href="#category-section">Accessories</a></span><span className="vertical"></span>
+            <span className="third-navbar-spans"><img src={collectablesActive}/> <a href="#category-section">Collectibles</a></span>
         </div>
     );
 }

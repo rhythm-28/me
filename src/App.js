@@ -13,6 +13,7 @@ import login from "./components/login.js";
 import signup from "./components/signup.js";
 import forgotPassword from "./components/forgotPassword.js";
 import contact from "./components/contact.js";
+import addProduct from "./components/addProduct.js";
 
 import topSellingCarousel from "./components/topSellingCarousel.js";
 import cart from "./components/cart.js";
@@ -31,6 +32,7 @@ function App() {
           <Route path="/signup" component={signup} />
           <Route path="/forgotPassword" component={forgotPassword} />
           <Route path="/contact" component={contact} />
+          <Route path="/admin/addProduct" component={addProduct} />
 
           <Route path="/topSellingCarousel" component={topSellingCarousel} />
           <Route path="/cart" component={cart} />

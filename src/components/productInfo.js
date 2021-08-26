@@ -47,6 +47,21 @@ function ProductInfo(props){
         element.classList.add("d-none");
     }
 
+    function handleAddToCartBtn(){
+        axios.post("https://modcrew-dev.herokuapp.com/api/v1/cart",{
+            "items": [
+                {
+                    "productId": id,
+                    "sku": title,
+                    "units": quantity
+                }
+            ]
+        })
+        .then((response)=>{
+            console.log(response);
+        });
+    }
+
     return (
         <div className="product-info">
             <span className="title">
@@ -91,7 +106,7 @@ function ProductInfo(props){
                     if(quantity<10)
                     setQuantity(quantity+1)
                     }}>+</button>
-                <button className="add-to-cart">Add to Cart</button>
+                <button onClick={()=>{handleAddToCartBtn()}} className="add-to-cart">Add to Cart</button>
             </span>
             <br />
             <span className="comment-review-social">
