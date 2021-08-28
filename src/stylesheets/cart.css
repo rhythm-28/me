@@ -1,5 +1,84 @@
 .cart-heading-div
 {
     display:flex;
-    
+    justify-content: space-between;
+}
+
+.remove-all
+{
+    background-color: transparent;
+    background-repeat:no-repeat;
+    border: none;
+    color: #EE0405;
+    margin-left: 87%;
+    margin-bottom: 3%;
+    font-weight: bold;
+}
+
+.cart-main-div
+{
+    padding: 5%;
+}
+
+.cart-headings
+{
+    margin-bottom: 3%;
+}
+
+.add-new-item
+{
+    background-color: transparent;
+    background-repeat:no-repeat;
+    color: #EE0405;
+    width: 30%;
+    border-radius: 4rem;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    margin-left: 40%;
+    margin-bottom: 7%;
+}
+
+.back-to-home
+{
+    background-color: transparent;
+    background-repeat:no-repeat;
+    color: #4599FE;
+    border: none;
+}
+
+.cart-second-div
+{
+    padding: 3.5%;
+    background-color:#F5F5F6;
+}
+
+.order-summary-heading
+{
+    display:flex;
+    justify-content: space-between;
+}
+
+.checkout
+{
+    width: 100%;
+    color: white;
+    background-color: #4599FE;
+    border: none;
+}
+
+.cart-coupon-code
+{
+    color: white;
+    background-color: #EE0405;
+    border: none;
+    margin-top: 2%;
+    margin-bottom: 4%;
+    width: 20%;
+    height: 4%;
+}
+
+.cart-dropdowns
+{
+    width: 100%;
+    margin: 5% 0;
 }

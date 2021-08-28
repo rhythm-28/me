@@ -39,6 +39,11 @@ function getLoginPage(){
     window.location.href="/login";
 }
 
+function goToCart(){
+    console.log("go to cart");
+    window.location.href="/cart";
+}
+
 function Navbar(props){
 
     // const {cartQuantity} = props;
@@ -98,7 +103,7 @@ function Navbar(props){
                                 </form>
                                 <div className="button-tray">
                                     <button className="navbar-buttons"><AiOutlineHeart size={25} className="white-color"/></button>
-                                    <button className="navbar-buttons"><img src={cart} /> Cart(0))</button>
+                                    <button className="navbar-buttons" onClick={()=>{goToCart()}}><img src={cart} /> Cart(0))</button>
                                 </div>
                             </div>
                         </div>
