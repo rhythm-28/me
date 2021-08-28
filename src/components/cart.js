@@ -16,6 +16,12 @@ function Cart(){
     const [subTotal,setSubTotal] = useState(null);
     const [stage,setStage] = useState("Check Out");
 
+    const [address,setAddress] = useState(null);
+    const [city,setCity] = useState(null);
+    const [state,setState] = useState(null);
+    const [country,setCountry] = useState(null);
+    const [pinCode,setPinCode] = useState(null);
+
     useEffect(()=>{
         axios.get("https://modcrew-dev.herokuapp.com/api/v1/cart",{
             headers:{
@@ -57,17 +63,108 @@ function Cart(){
           window.location.href="/cart";
     }
 
-    function handleCheckOut(){
+    async function handleCheckOut(){
         if(stage==="Check Out"){
             setStage("Purchase");
         }
         else{
             console.log("lets razorpay now");
+
+            // 1) get user data
+            const response1 = await axios.get("https://modcrew-dev.herokuapp.com/api/v1/auth/me",{
+                    headers: {
+                      "Content-Type": "application/json",
+                      Authorization: `Bearer ${loggedInToken}`,
+                    },
+                  },
+                  {
+                    withCredentials: true,
+                  }
+                );
+            const data1 = response1.data.data;
+            console.log("response1",data1);
+
+            // 2) create order
+            const response2 = await axios.post("https://modcrew-dev.herokuapp.com/api/v1/orders",{
+                    "customer_name": data1.firstName,
+                    "address": address,
+                    "city": city,
+                    "pincode": pinCode,
+                    "state": state,
+                    "country": country,
+                    "email": data1.email,
+                    "phone": data1.phone
+                },{
+                    headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${loggedInToken}`
+                  }
+                },
+                {
+                  withCredentials: true,
+                }
+            );
+            console.log("response2",response2);
+            const _id = response2.data.data._id;
+            console.log("_id",_id);
+            
+            // 3) api/v1/_id/pay
+            const response3 = await axios.post(`https://modcrew-dev.herokuapp.com/api/v1/orders/${_id}/pay`,{
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${loggedInToken}`
+                  }
+            },{
+                withCredentials: true,
+            });
+
+            console.log("response-3",response3.data.data);
+            const id = response3.data.data.id;
+            
+            // 4) razorpay
+
+
+            // 5) get order summary
+            const response5 = await axios.get(`https://modcrew-dev.herokuapp.com/api/v1/orders/${_id}`,{
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${loggedInToken}`
+                  }
+            },{
+                withCredentials: true,
+            });
+            console.log("response5",response5.data.data);
         }
     }
 
     function handlePurchase(){
         setStage("Check Out");
+    }
+
+    function handleChange1(event) {
+        const newQty = event.target.value;
+        setAddress(newQty);
+        // console.log(address);
+    }
+    function handleChange2(event) {
+        const newQty = event.target.value;
+        setCity(newQty);
+        // console.log(city);
+    }
+    function handleChange3(event) {
+        const newQty = event.target.value;
+        setState(newQty);
+        // console.log(state);
+    }
+    function handleChange4(event) {
+        const newQty = event.target.value;
+        setCountry(newQty);
+        // console.log(newQty);
+    }
+    function handleChange5(event) {
+        const newQty = event.target.value;
+        setPinCode(newQty);
+        // console.log(pinCode);
     }
 
     function renderCart(){
@@ -123,15 +220,16 @@ function Cart(){
                         <input type="radio" checked/>
                         <label> &nbsp; Login / Signup</label>
                     </div>
-                    <form>
-                        <div className="cart-login-div">
+                    <div className="cart-login-div">
                             <input type="radio"/>
                             <label> &nbsp; Add Address</label>
                             <br />
-                            <input style={{width:'45%',marginTop:'3%',marginLeft:'5%',marginBottom:'2%'}} type="text" placeholder="First Name"/>
-                            <input style={{width:'45%',marginLeft:'5%'}} type="text" placeholder="Second Name"/>
-                            <textarea style={{marginLeft:'5%',marginTop:'2%'}} rows="2" cols="70"/>
-                        </div>
+                            <input className="cart-address" type="text" placeholder="address" name="address" value={address} onChange={(e)=>{handleChange1(e)}}/>
+                            <input className="cart-other-address-details" type="text" placeholder="city" name="city" value={city} onChange={(e)=>{handleChange2(e)}}/>
+                            <input className="cart-other-address-details" type="text" placeholder="state" name="state" value={state} onChange={(e)=>{handleChange3(e)}}/>
+                            <input className="cart-other-address-details" type="text" placeholder="country" name="country" value={country} onChange={(e)=>{handleChange4(e)}}/>
+                            <input className="cart-other-address-details" type="number" placeholder="pinCode" name="pinCode" value={pinCode} onChange={(e)=>{handleChange5(e)}}/>
+                    </div>
                         <div className="cart-login-div">
                             <input type="radio"/>
                             <label> &nbsp; Payment</label>
@@ -140,7 +238,6 @@ function Cart(){
                             <input type="radio"/>
                             <label> &nbsp; Confirmation</label>
                         </div>
-                    </form>
                 </div>
             </div>
         );
