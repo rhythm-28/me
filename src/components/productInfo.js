@@ -1,4 +1,4 @@
-import react,{useState } from "react";
+import react,{useState, useEffect } from "react";
 import styles from "../stylesheets/productInfo.css";
 
 import axios from "axios";
@@ -8,13 +8,54 @@ import { FaFacebookF } from 'react-icons/fa';
 import { RiTwitterFill } from 'react-icons/ri';
 import { AiOutlineGoogle } from 'react-icons/ai';
 
-function ProductInfo(props){
-    const {title,sellingPrice,description,images,reviews,id} = props;
-    const [quantity,setQuantity] = useState(1);
+import { useCookies} from 'react-cookie';
 
+function ProductInfo(props){
+
+    const [cookies, setCookie, removeCookie,get] = useCookies(['token']);
+    const {title,sellingPrice,description,images,reviews,id,variations} = props;
+    const [quantity,setQuantity] = useState(1);
+    const [currentCartQty,setCurrentCartQty] = useState(null);
     const [rating,setRating] = useState(null);
     const [reviewTitle,setReviewTitle] = useState(null);
     const [reviewBody,setReviewBody]= useState(null);
+
+    let defaultItems = [];
+    if(localStorage.getItem("items")){
+        defaultItems = [...JSON.parse(localStorage.getItem("items"))];
+    }
+
+    const [items,setItems] = useState(localStorage.getItem("items") ? [...JSON.parse(localStorage.getItem("items"))] :[]);
+    const loggedInToken = cookies.token;
+    
+    // useEffect(()=>{
+    //     if(loggedInToken){
+    //         axios.get("https://modcrew-dev.herokuapp.com/api/v1/cart",{
+    //             headers:{
+    //                 'Content-Type':'application/json',
+    //                 "Authorization" :`Bearer ${loggedInToken}`
+    //             }
+    //         },{
+    //             withCredentials: true
+    //             })
+    //         .then((response)=>{
+    //             setQuantity(response.data.data.items[0].units);
+    //             //console.log("current",response.data.data);
+    //         });
+    //     }else{
+    //         const itemsData = JSON.parse(localStorage.getItem("items"));
+    //         const requiredItem = itemsData?.filter((itemsInsides)=>{
+    //             return itemsInsides.productId === id;
+    //         });
+    //         if(requiredItem){
+    //             setQuantity(requiredItem.units);
+    //         }
+    //     }
+    // },[])
+
+    // useEffect(()=>{
+    //     localStorage.setItem("items",JSON.stringify(items));
+    // },[items]);
 
     function handleChange(event){
         const newQty = event.target.value;
@@ -48,18 +89,60 @@ function ProductInfo(props){
     }
 
     function handleAddToCartBtn(){
-        axios.post("https://modcrew-dev.herokuapp.com/api/v1/cart",{
+        if(loggedInToken){
+            axios.post("https://modcrew-dev.herokuapp.com/api/v1/cart",{
             "items": [
                 {
                     "productId": id,
-                    "sku": title,
+                    "sku": variations[0].sku,
                     "units": quantity
                 }
             ]
+        },
+        {
+            headers:{
+                'Content-Type':'application/json',
+                "Authorization" :`Bearer ${loggedInToken}`
+            }
+        },{
+            withCredentials: true
         })
         .then((response)=>{
-            console.log(response);
+            console.log(response.data.data);
         });
+        }else{
+            window.location.href="../login";
+        }   
+
+        // }
+        // else{
+        //     console.log("items array",items);
+        //     let requiredIndex=-1;
+        //     items?.forEach((itemsInside,index)=>{
+        //         if(itemsInside.productId === id){
+        //             requiredIndex = index;
+        //         }
+        //     });
+
+        //     if(requiredIndex!==-1){
+        //         let x = items;
+        //         x[requiredIndex] = {
+        //             productId: id,
+        //             sku: variations[0].sku,
+        //             units: quantity
+        //         };
+        //         console.log("quantity",quantity);
+        //         setItems(x);
+        //         console.log("here",items);
+        //     }else{
+        //         setItems([...items,{
+        //             productId: id,
+        //             sku: variations[0].sku,
+        //             units: quantity
+        //         }]);
+        //     }
+        //     console.log("something");
+        // }
     }
 
     return (
@@ -75,7 +158,7 @@ function ProductInfo(props){
                     <button className="productsize-btn default-size">
                         Size 01
                     </button>
-                    <button className="productsize-btn">
+                    <button className="productsize-btn" onClick={()=>{console.log("in div",items)}}>
                         Size 02
                     </button>
                     <button className="productsize-btn">

@@ -70,6 +70,7 @@ function ProductPage(props){
                         images={productData?.images}
                         description={productData?.description}
                         reviews={productData?.reviews}
+                        variations={productData?.variations}
                     />
                 </div>
             </div>
