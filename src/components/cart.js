@@ -2,6 +2,7 @@ import react, { useEffect,useState } from "react";
 import Navbar from "./navbar.js";
 import ThirdNavbar from "./ThirdNavbar.js";
 import CartProduct from "./cartProduct.js";
+import OrderSummaryProduct from "./orderSummaryProduct.js";
 
 import styles from "../stylesheets/cart.css";
 import axios from "axios";
@@ -13,6 +14,7 @@ function Cart(){
     const loggedInToken = cookies.token;
     const [items,setItems] = useState(null);
     const [subTotal,setSubTotal] = useState(null);
+    const [stage,setStage] = useState("Check Out");
 
     useEffect(()=>{
         axios.get("https://modcrew-dev.herokuapp.com/api/v1/cart",{
@@ -55,14 +57,22 @@ function Cart(){
           window.location.href="/cart";
     }
 
-    return (
-        <div>
-            <Navbar />
-            <ThirdNavbar />
-            <div className="row">
-                <div className="col-8">
+    function handleCheckOut(){
+        if(stage==="Check Out"){
+            setStage("Purchase");
+        }
+        else{
+            console.log("lets razorpay now");
+        }
+    }
 
-                    <div className="cart-main-div">
+    function handlePurchase(){
+        setStage("Check Out");
+    }
+
+    function renderCart(){
+        return (
+                        <div>
                         <div className="cart-heading-div">
                             <div><h3>Shopping Cart</h3></div>
                             <div><h3>{items?.length} items</h3></div>
@@ -99,12 +109,47 @@ function Cart(){
                         <button onClick={()=>{goToHome()}} className="add-new-item">Add New Item</button>
                         <br/>
                         <button onClick={()=>{goToHome()}} className="back-to-home">Back to Home</button>  
-                    </div>        
+                    </div>
+        );
+    }
+
+    function renderPurchaseSection(){
+        return (
+            <div>
+                <button onClick={()=>{handlePurchase()}}>Back</button>
+                <hr />
+                <div>
+                    <div className="cart-login-div">
+                        <input type="radio" checked/>
+                        <label> &nbsp; Login / Signup</label>
+                    </div>
+                    <form>
+                        <div className="cart-login-div">
+                            <input type="radio"/>
+                            <label> &nbsp; Add Address</label>
+                            <br />
+                            <input style={{width:'45%',marginTop:'3%',marginLeft:'5%',marginBottom:'2%'}} type="text" placeholder="First Name"/>
+                            <input style={{width:'45%',marginLeft:'5%'}} type="text" placeholder="Second Name"/>
+                            <textarea style={{marginLeft:'5%',marginTop:'2%'}} rows="2" cols="70"/>
+                        </div>
+                        <div className="cart-login-div">
+                            <input type="radio"/>
+                            <label> &nbsp; Payment</label>
+                        </div>
+                        <div className="cart-login-div">
+                            <input type="radio"/>
+                            <label> &nbsp; Confirmation</label>
+                        </div>
+                    </form>
                 </div>
-                <div className="col-4 cart-second-div">
-                    <h3>Order Summary</h3>
-                    <hr />
-                    <div className="order-summary-heading">
+            </div>
+        );
+    }
+
+    function renderShippingDetails(){
+        return (
+            <div>
+                <div className="order-summary-heading">
                         <p>{items?.length} items</p>
                         <h6>₹{subTotal}/-</h6>
                     </div>
@@ -129,12 +174,53 @@ function Cart(){
                         </ul>
                     </div>
                     <button className="cart-coupon-code">Apply</button>
+            </div>
+        );
+    }
+
+    function renderCartProducts(){
+        return (
+            <div>
+                {items?.map((product)=>{
+                    return (
+                        <OrderSummaryProduct
+                            name={product.name}
+                            quantity={product.units}
+                            price={product.selling_price}
+                            total={product.total}
+                            image={product.image}
+                        />
+                    );
+                })}
+            </div>
+        );
+    }
+
+    return (
+        <div>
+            <Navbar />
+            <ThirdNavbar />
+            <div className="row">
+                <div className="col-8">
+                    <div className="cart-main-div">
+                        {stage==="Check Out" ? renderCart() : renderPurchaseSection()}
+                    </div>        
+                </div>
+                <div className="col-4 cart-second-div">
+                <h3>Order Summary</h3>
+                    <hr />
+                    {stage==="Check Out" ? renderShippingDetails() : renderCartProducts()}
+                    
                     <hr />
                     <div className="order-summary-heading">
                         <p>Total Cost</p>
                         <h6>₹{subTotal !==0 ? subTotal+80 : 0}/-</h6>
                     </div>
-                    <button className="checkout">Check Out</button>
+                    <button onClick={()=>{handleCheckOut()}} className="checkout">{stage}</button>
+                    {/* <CartSummary 
+                        items={items}
+                        subTotal={subTotal}
+                    /> */}
                 </div>
             </div>
         </div>

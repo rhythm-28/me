@@ -87,3 +87,19 @@
 {
     width: 100%;
 }
+
+.cart-login-div
+{
+    border: 1px solid #828282;
+    box-sizing: border-box;
+    border-radius: 15px;
+    padding: 3%;    
+    font-size: 1.3rem;
+    margin-bottom: 2%;
+}
+
+.order-summary-image
+{
+    width: 100%;
+    height: auto;
+}

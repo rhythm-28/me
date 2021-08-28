@@ -21,7 +21,6 @@ function Login(){
             .then((response)=>{
                 if(response.data.success===true){
                     console.log(response.data);
-                    // setCookie("token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMGQ3MGE3YWFhZDY1NWU4YzhiMzk1ZSIsImlhdCI6MTYzMDA1NDU5OCwiZXhwIjoxNjMwNjU5Mzk4fQ.kZ13dEP_PaUPFdxOJz1ABVB8f94wH8eJfTMnJOXoapw; Path=/; HttpOnly; Expires=Fri, 03 Sep 2021 08:56:38 GMT;");
                     setCookie("token", response.data.token);
                     // setCookie("testToken","test1234");
                     window.location.href="./";

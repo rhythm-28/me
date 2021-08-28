@@ -143,3 +143,9 @@
     color: white;
     background-color: #EE0405;
 }
+
+.added-to-cart
+{
+    background-color: aquamarine;
+    content: "Added to cart";
+}

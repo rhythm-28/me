@@ -97,7 +97,7 @@ function ProductInfo(props) {
     element.classList.add("d-none");
   }
 
-  async function handleAddToCartBtn() {
+  async function handleAddToCartBtn(e) {
     if (loggedInToken) {
       // getting cart
       const response = await axios.get(
@@ -178,6 +178,9 @@ function ProductInfo(props) {
     } else {
       window.location.href = "../login";
     }
+    const element = e.target;
+    element.classList.add("added-to-cart");
+    element.innerHTML = "Added to cart";
   }
 
   
@@ -302,8 +305,8 @@ function ProductInfo(props) {
           +
         </button>
         <button
-          onClick={() => {
-            handleAddToCartBtn();
+          onClick={(e) => {
+            handleAddToCartBtn(e);
           }}
           className="add-to-cart"
         >
