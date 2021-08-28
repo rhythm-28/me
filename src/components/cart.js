@@ -113,7 +113,7 @@ function Cart(){
                         <button class="btn btn-secondary dropdown-toggle cart-dropdowns" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                             Delivery Type - ₹80
                         </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <ul class="dropdown-menu cart-li" aria-labelledby="dropdownMenuButton1">
                             <li><a class="dropdown-item" href="#">Delivery Type - ₹80</a></li>
                         </ul>
                     </div>
@@ -122,8 +122,8 @@ function Cart(){
                         <button class="btn btn-secondary dropdown-toggle cart-dropdowns" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                             Enter Promo Code
                         </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="#">Promo Code-1</a></li>
+                        <ul class="dropdown-menu cart-li" aria-labelledby="dropdownMenuButton1">
+                            <li><a className="dropdown-item" href="#">Promo Code-1</a></li>
                             <li><a class="dropdown-item" href="#">Promo Code-2</a></li>
                             <li><a class="dropdown-item" href="#">Promo Code-3</a></li>
                         </ul>

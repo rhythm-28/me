@@ -1,5 +1,7 @@
 import react from "react";
 import {Link} from "react-router-dom";
+import { useCookies} from 'react-cookie';
+
 import styles from "../stylesheets/navbar.css";
 
 import { FaFacebookF } from 'react-icons/fa';
@@ -11,6 +13,7 @@ import {BsSearch} from 'react-icons/bs';
 import {AiOutlineHeart} from 'react-icons/ai';
 
 import cart from "../icons/cart.svg";
+
 
 const availableCatagories = [
     'collectibles',
@@ -48,6 +51,14 @@ function Navbar(props){
 
     // const {cartQuantity} = props;
 
+    const [cookies, setCookie, removeCookie,get] = useCookies(['token']);
+    const loggedInToken = cookies.token;
+
+    function Logout(){
+        removeCookie("token");
+        window.location.href="/";
+    }
+
     return (
         <div>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -83,7 +94,7 @@ function Navbar(props){
                                     <button><RiTwitterFill size={20} className="white-color"/></button>
                                     <button><RiInstagramFill size={20} className="white-color"/></button>
                                     <button><IoIosCall size={20} className="white-color"/></button>
-                                    <button className="login-btn" onClick={()=>{getLoginPage()}}>Login/Signup</button>
+                                    {loggedInToken ?  <button className="login-btn" onClick={()=>{Logout()}}>Logout</button> : <button className="login-btn" onClick={()=>{getLoginPage()}}>Login/Signup</button>}
                                 </div>
                             </div>
                             <div className="navbar-search">
@@ -103,7 +114,7 @@ function Navbar(props){
                                 </form>
                                 <div className="button-tray">
                                     <button className="navbar-buttons"><AiOutlineHeart size={25} className="white-color"/></button>
-                                    <button className="navbar-buttons" onClick={()=>{goToCart()}}><img src={cart} /> Cart(0))</button>
+                                    <button className="navbar-buttons" onClick={()=>{goToCart()}}><img src={cart} /> Cart</button>
                                 </div>
                             </div>
                         </div>

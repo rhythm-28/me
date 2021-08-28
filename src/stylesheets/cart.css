@@ -74,11 +74,16 @@
     margin-top: 2%;
     margin-bottom: 4%;
     width: 20%;
-    height: 4%;
+    height: 2rem;
 }
 
 .cart-dropdowns
 {
     width: 100%;
     margin: 5% 0;
+}
+
+.cart-li
+{
+    width: 100%;
 }
