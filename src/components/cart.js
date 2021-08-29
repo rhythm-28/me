@@ -8,6 +8,8 @@ import styles from "../stylesheets/cart.css";
 import axios from "axios";
 import { useCookies} from 'react-cookie';
 
+import cart from "../icons/cart.svg";
+
 function Cart(){
 
     const [cookies, setCookie, removeCookie,get] = useCookies(['token']);
@@ -21,6 +23,8 @@ function Cart(){
     const [state,setState] = useState(null);
     const [country,setCountry] = useState(null);
     const [pinCode,setPinCode] = useState(null);
+
+    const __DEV__ = document.domain === 'loaclhost';
 
     useEffect(()=>{
         axios.get("https://modcrew-dev.herokuapp.com/api/v1/cart",{
@@ -61,6 +65,51 @@ function Cart(){
             console.log("removed all products from cart");
           });
           window.location.href="/cart";
+    }
+
+    function loadScript(src){
+        return new Promise((resolve) => {
+            const script = document.createElement('script');
+            script.src = src;
+            script.onload = () => {
+                resolve(true);
+            }
+            script.onerror = () =>{
+                resolve(false);
+            }
+            document.body.appendChild(script);
+        })
+    }
+
+    async function displayRazorpay(amount,currency,name,id){
+        const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
+
+        if(!res){
+            alert("razorpay sdk failed to load");
+            return ;
+        }
+        // __DEV__ ? : 'real_key
+        var options = {
+            "key": "rzp_test_5bt00IcxhJIvJ3", 
+            "amount": amount.toString(),
+            "currency": currency,
+            "name": name,
+            "description": "Test Transaction",
+            "image": "https://cdn.vox-cdn.com/thumbor/Pkmq1nm3skO0-j693JTMd7RL0Zk=/0x0:2012x1341/1200x800/filters:focal(0x0:2012x1341)/cdn.vox-cdn.com/uploads/chorus_image/image/47070706/google2.0.0.jpg",
+            "order_id": id,
+            "handler": function (response){
+                alert(response.razorpay_payment_id);
+                alert(response.razorpay_order_id);
+                alert(response.razorpay_signature)
+            },
+            "prefill": {
+                "name": "Gaurav Kumar",
+                "email": "gaurav.kumar@example.com",
+                "contact": "9999999999"
+            },
+        };
+        const paymentObject = new window.Razorpay(options);
+        paymentObject.open();
     }
 
     async function handleCheckOut(){
@@ -106,23 +155,29 @@ function Cart(){
             );
             console.log("response2",response2);
             const _id = response2.data.data._id;
-            console.log("_id",_id);
             
-            // 3) api/v1/_id/pay
-            const response3 = await axios.post(`https://modcrew-dev.herokuapp.com/api/v1/orders/${_id}/pay`,{
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${loggedInToken}`
-                  }
-            },{
-                withCredentials: true,
-            });
+            console.log("_id",_id);
 
-            console.log("response-3",response3.data.data);
-            const id = response3.data.data.id;
+            // 3) api/v1/_id/pay
+            const response3 = await fetch(
+                `https://modcrew-dev.herokuapp.com/api/v1/orders/${_id}/pay`,
+                {
+                    method: 'POST',
+                    headers: {
+                        Authorization:
+                            `Bearer ${loggedInToken}`
+                    }
+                }
+            ).then((t) => t.json())
+            
+            console.log("response-3 id",response3.data.id);
+            const id = response3.data.id;
+            const currency = response3.data.currency;
+            const amount = response3.data.amount;
+            console.log("id",id);
             
             // 4) razorpay
-
+            displayRazorpay(amount,currency,data1.firstName,id);
 
             // 5) get order summary
             const response5 = await axios.get(`https://modcrew-dev.herokuapp.com/api/v1/orders/${_id}`,{
@@ -144,27 +199,22 @@ function Cart(){
     function handleChange1(event) {
         const newQty = event.target.value;
         setAddress(newQty);
-        // console.log(address);
     }
     function handleChange2(event) {
         const newQty = event.target.value;
         setCity(newQty);
-        // console.log(city);
     }
     function handleChange3(event) {
         const newQty = event.target.value;
         setState(newQty);
-        // console.log(state);
     }
     function handleChange4(event) {
         const newQty = event.target.value;
         setCountry(newQty);
-        // console.log(newQty);
     }
     function handleChange5(event) {
         const newQty = event.target.value;
         setPinCode(newQty);
-        // console.log(pinCode);
     }
 
     function renderCart(){
