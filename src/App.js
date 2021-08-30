@@ -13,10 +13,11 @@ import login from "./components/login.js";
 import signup from "./components/signup.js";
 import forgotPassword from "./components/forgotPassword.js";
 import contact from "./components/contact.js";
+import cart from "./components/cart.js";
+import profile from "./components/profile.js";
 import addProduct from "./components/addProduct.js";
 
 import topSellingCarousel from "./components/topSellingCarousel.js";
-import cart from "./components/cart.js";
 import VerticalCarousel from "./components/verticalCarousel.js";
 
 function App() {
@@ -32,10 +33,11 @@ function App() {
           <Route path="/signup" component={signup} />
           <Route path="/forgotPassword" component={forgotPassword} />
           <Route path="/contact" component={contact} />
+          <Route path="/cart" component={cart} />
+          <Route path="/profile" component={profile} />
           <Route path="/admin/addProduct" component={addProduct} />
 
           <Route path="/topSellingCarousel" component={topSellingCarousel} />
-          <Route path="/cart" component={cart} />
           <Route path="/verticalCarousel" component={VerticalCarousel} />
         </Switch>
       </Router>

@@ -47,6 +47,10 @@ function goToCart(){
     window.location.href="/cart";
 }
 
+function getProfilePage(){
+    window.location.href="/profile";
+}
+
 function Navbar(props){
 
     // const {cartQuantity} = props;
@@ -95,6 +99,7 @@ function Navbar(props){
                                     <button><RiInstagramFill size={20} className="white-color"/></button>
                                     <button><IoIosCall size={20} className="white-color"/></button>
                                     {loggedInToken ?  <button className="login-btn" onClick={()=>{Logout()}}>Logout</button> : <button className="login-btn" onClick={()=>{getLoginPage()}}>Login/Signup</button>}
+                                    {loggedInToken && <button className="login-btn" onClick={()=>getProfilePage()}>Profile</button>}
                                 </div>
                             </div>
                             <div className="navbar-search">
