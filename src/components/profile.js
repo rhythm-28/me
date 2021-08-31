@@ -2,6 +2,7 @@ import react, { useEffect,useState } from "react";
 import styles from "../stylesheets/profile.css";
 import Avatar from 'react-avatar';
 import { useCookies} from 'react-cookie';
+import axios from "axios";
 
 import Navbar from "./navbar.js";
 import ThirdNavbar from "./ThirdNavbar.js";
@@ -24,7 +25,8 @@ import logout from "../icons/logout.svg";
 import insta from "../icons/insta.svg";
 import fb from "../icons/fb.svg";
 import pintrest from "../icons/pintrest.svg";
-import axios from "axios";
+
+import gold from "../icons/gold.svg"
 
 function Profile(){
 
@@ -170,9 +172,9 @@ function Profile(){
                             <a href="" style={{textDecoration:'none'}}>View All</a>
                         </div>
                     </div>
-                    <div className="row">
+                    <div className="row" style={{marginBottom:'4%'}}>
                         <div className="col-8 membership-div">
-                        <Avatar src="http://www.gravatar.com/avatar/a16a38cdfe8b2cbd38e8a56ab93238d3" round={true} style={{float:'left'}} />
+                        <Avatar src={gold} round={true} style={{float:'left'}} />
                         <div className="row">
                             <div className="membership-info col-6">
                                     <h3>{userInfo?.membership ? "Gold" : "No"} Membership</h3>

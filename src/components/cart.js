@@ -36,7 +36,6 @@ function Cart(){
             withCredentials: true
         })
             .then((response)=>{
-                console.log(response.data.data.items);
                 setSubTotal(response.data.data.sub_total);
                 setItems(response.data.data.items);
             });
@@ -81,7 +80,7 @@ function Cart(){
         })
     }
 
-    async function displayRazorpay(amount,currency,name,id){
+    async function displayRazorpay(amount,currency,name,id,email,phone){
         const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
 
         if(!res){
@@ -98,14 +97,15 @@ function Cart(){
             "image": "https://cdn.vox-cdn.com/thumbor/Pkmq1nm3skO0-j693JTMd7RL0Zk=/0x0:2012x1341/1200x800/filters:focal(0x0:2012x1341)/cdn.vox-cdn.com/uploads/chorus_image/image/47070706/google2.0.0.jpg",
             "order_id": id,
             "handler": function (response){
-                alert(response.razorpay_payment_id);
-                alert(response.razorpay_order_id);
-                alert(response.razorpay_signature)
+                // alert(response.razorpay_payment_id);
+                // alert(response.razorpay_order_id);
+                // alert(response.razorpay_signature)
+                window.location.href="/orderSummary";
             },
             "prefill": {
-                "name": "Gaurav Kumar",
-                "email": "gaurav.kumar@example.com",
-                "contact": "9999999999"
+                "name": name,
+                "email": email,
+                "contact": phone
             },
         };
         const paymentObject = new window.Razorpay(options);
@@ -174,21 +174,24 @@ function Cart(){
             const id = response3.data.id;
             const currency = response3.data.currency;
             const amount = response3.data.amount;
+            // console.log(response3.data.amount);
+            // const amount = parseInt(response3.data.amount)/100+parseInt("80");
+            // console.log("amount",amount);
             console.log("id",id);
             
             // 4) razorpay
-            displayRazorpay(amount,currency,data1.firstName,id);
+            displayRazorpay(amount,currency,data1.firstName,id,data1.email,data1.phone);
 
             // 5) get order summary
-            const response5 = await axios.get(`https://modcrew-dev.herokuapp.com/api/v1/orders/${_id}`,{
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${loggedInToken}`
-                  }
-            },{
-                withCredentials: true,
-            });
-            console.log("response5",response5.data.data);
+            // const response5 = await axios.get(`https://modcrew-dev.herokuapp.com/api/v1/orders/${_id}`,{
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //         Authorization: `Bearer ${loggedInToken}`
+            //       }
+            // },{
+            //     withCredentials: true,
+            // });
+            // console.log("response5",response5.data.data);
         }
     }
 
@@ -280,10 +283,10 @@ function Cart(){
                             <input className="cart-other-address-details" type="text" placeholder="country" name="country" value={country} onChange={(e)=>{handleChange4(e)}}/>
                             <input className="cart-other-address-details" type="number" placeholder="pinCode" name="pinCode" value={pinCode} onChange={(e)=>{handleChange5(e)}}/>
                     </div>
-                        <div className="cart-login-div">
+                        {/* <div className="cart-login-div">
                             <input type="radio"/>
                             <label> &nbsp; Payment</label>
-                        </div>
+                        </div> */}
                         <div className="cart-login-div">
                             <input type="radio"/>
                             <label> &nbsp; Confirmation</label>
@@ -303,10 +306,10 @@ function Cart(){
                     <h5>Shipping</h5>
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle cart-dropdowns" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            Delivery Type - ₹80
+                            Free Delivery
                         </button>
                         <ul class="dropdown-menu cart-li" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="#">Delivery Type - ₹80</a></li>
+                            <li><a class="dropdown-item" href="#">Free Delivery</a></li>
                         </ul>
                     </div>
                     <h5>Promo Code</h5>
@@ -361,13 +364,10 @@ function Cart(){
                     <hr />
                     <div className="order-summary-heading">
                         <p>Total Cost</p>
-                        <h6>₹{subTotal !==0 ? subTotal+80 : 0}/-</h6>
+                        {/* <h6>₹{subTotal !==0 ? subTotal+80 : 0}/-</h6> */}
+                        <h6>₹{subTotal}/-</h6>
                     </div>
                     <button onClick={()=>{handleCheckOut()}} className="checkout">{stage}</button>
-                    {/* <CartSummary 
-                        items={items}
-                        subTotal={subTotal}
-                    /> */}
                 </div>
             </div>
         </div>
