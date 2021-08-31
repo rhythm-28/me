@@ -103,7 +103,6 @@
     font-weight: bold;
     padding: 0.5rem 1rem;
     letter-spacing: 1px;
-    /* margin-left: 4px; */
     width: 95%;
     text-align: left;
     margin: 5%;
@@ -143,4 +142,62 @@
 .profile-order-prdct
 {
     margin-bottom: 5%;
+}
+
+.membership-div
+{
+    background-color: #FFFFFF;
+    margin-top: 1.5%;
+    padding: 2%;
+    width: 63%;
+}
+
+.offers-btn
+{
+    border: 1px solid #EE0405;
+    background-color: #EE0405;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0.4rem 1rem;
+    letter-spacing: 1px;
+    width: 100%;
+}
+
+.coins
+{
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0.4rem 1rem;
+    letter-spacing: 1px;
+    width: 15%;
+    background-color: transparent;
+    background-repeat:no-repeat;
+    border: 1px solid #BDBDBD;
+    box-sizing: border-box;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.loyalty-balance
+{
+    color: blue;
+    display: inline-block;
+}
+
+.recent-activity
+{
+    background-color: #FFFFFF;
+    height: 80%;
+    margin-top: 1.5%;
+    margin-left: 3%;
+    width: 30%;
+}
+
+.super-and-recent
+{
+    display:flex;
+    justify-content: space-between;
+    margin-top: 5%;
+    width: 90%;
 }

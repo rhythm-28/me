@@ -1,6 +1,7 @@
-import react from "react";
+import react, { useEffect,useState } from "react";
 import styles from "../stylesheets/profile.css";
 import Avatar from 'react-avatar';
+import { useCookies} from 'react-cookie';
 
 import Navbar from "./navbar.js";
 import ThirdNavbar from "./ThirdNavbar.js";
@@ -23,8 +24,37 @@ import logout from "../icons/logout.svg";
 import insta from "../icons/insta.svg";
 import fb from "../icons/fb.svg";
 import pintrest from "../icons/pintrest.svg";
+import axios from "axios";
 
 function Profile(){
+
+    const [cookies, setCookie, removeCookie,get] = useCookies(['token']);
+    const loggedInToken = cookies.token;
+    const [userInfo,setUserInfo] = useState(null);
+
+    function Logout(){
+        removeCookie("token");
+        window.location.href="/";
+    }
+
+    useEffect(()=>{
+        axios.get("https://modcrew-dev.herokuapp.com/api/v1/auth/me",{
+                    headers: {
+                      "Content-Type": "application/json",
+                      Authorization: `Bearer ${loggedInToken}`,
+                    },
+                  },
+                  {
+                    withCredentials: true,
+                  }
+                )
+                  .then((response)=>{
+                    const data1 = response.data.data;
+                    console.log("response",data1);
+                    setUserInfo(data1);
+                });
+    },[]);
+
     return (
         <div>
             <Navbar />
@@ -44,7 +74,7 @@ function Profile(){
                     <button className="menu-btns"><img src={stuff} /> &nbsp; &nbsp; &nbsp; My Stuff</button><br />
                     <button className="menu-btns"><img src={orders} /> &nbsp; &nbsp; &nbsp; My Orders</button><br />
                     <button className="menu-btns"><img src={settings} /> &nbsp; &nbsp; &nbsp; Settings</button><br />
-                    <button className="menu-btns"><img src={logout} /> &nbsp; &nbsp; &nbsp; Logout</button>
+                    <button className="menu-btns" onClick={Logout}><img src={logout} /> &nbsp; &nbsp; &nbsp; Logout</button>
                 </div>
                 <div className="col-9 profile-section">
                     <h4 style={{marginBottom:'3%'}}>Personal Details</h4>
@@ -52,7 +82,7 @@ function Profile(){
                         <div className="col-4 personal-info">
                             <span className="personal-info-top">
                                 <Avatar style={{float:'left'}} round={true} size="80" src="http://www.gravatar.com/avatar/a16a38cdfe8b2cbd38e8a56ab93238d3" />
-                                <h5>Name</h5>
+                                <h5>{userInfo?.firstName}</h5>
                                 <br/>
                                 <p>Title</p>
                                 <button>Edit</button>
@@ -98,28 +128,28 @@ function Profile(){
                             <hr style={{margin:'2% 0 5% 0'}}/>
                             <div>
                                 <div className="profile-order-prdct">
-                                    <Avatar style={{float:'left'}} round={true} size="40" src="http://www.gravatar.com/avatar/a16a38cdfe8b2cbd38e8a56ab93238d3" />
+                                    <Avatar style={{float:'left'}} round={true} size="40" src={userInfo?.orders[0].order_items[0].image} />
                                     <div className="profile-order-info">
-                                        <h6>Name of product</h6>
-                                        <p>Delivered</p>
+                                        <h6>{userInfo?.orders[0].order_items[0].name.substring(0,10)}</h6>
+                                        <p style={{fontSize:'0.8rem'}}>{userInfo?.orders[0].status}</p>
                                         
                                     </div>
                                     <button className="profile-order-share">Share</button>
                                 </div>
                                 <div className="profile-order-prdct">
-                                    <Avatar style={{float:'left'}} round={true} size="40" src="http://www.gravatar.com/avatar/a16a38cdfe8b2cbd38e8a56ab93238d3" />
+                                    <Avatar style={{float:'left'}} round={true} size="40" src={userInfo?.orders[1].order_items[0].image} />
                                     <div className="profile-order-info">
-                                        <h6>Name of product</h6>
-                                        <p>Delivered</p>
+                                        <h6>{userInfo?.orders[1].order_items[0].name.substring(0,10)}</h6>
+                                        <p style={{fontSize:'0.8rem'}}>{userInfo?.orders[1].status}</p>
                                         
                                     </div>
                                     <button className="profile-order-share">Share</button>
                                 </div>
                                 <div className="profile-order-prdct">
-                                    <Avatar style={{float:'left'}} round={true} size="40" src="http://www.gravatar.com/avatar/a16a38cdfe8b2cbd38e8a56ab93238d3" />
+                                    <Avatar style={{float:'left'}} round={true} size="40" src={userInfo?.orders[2].order_items[0].image} />
                                     <div className="profile-order-info">
-                                        <h6>Name of product</h6>
-                                        <p>Delivered</p>
+                                        <h6>{userInfo?.orders[2].order_items[0].name.substring(0,10)}</h6>
+                                        <p style={{fontSize:'0.8rem'}}>{userInfo?.orders[2].status}</p>
                                         
                                     </div>
                                     <button className="profile-order-share">Share</button>
@@ -131,6 +161,53 @@ function Profile(){
                             <button className="share insta"><img src={insta} /> &nbsp; &nbsp; Post Feed on Instagram</button>
                             <button className="share"><img src={fb} /> &nbsp; &nbsp; Post on Facebook</button>
                             <button className="share"><img src={pintrest} /> &nbsp; &nbsp; Save with Pintrest</button>
+                        </div>
+                    </div>
+                    <div className="super-and-recent">
+                        <h5>My Supercoins</h5>
+                        <div style={{display:'flex',justifyContent:'space-between',width:'26%'}}>
+                            <h5>Recent Activity</h5>
+                            <a href="" style={{textDecoration:'none'}}>View All</a>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-8 membership-div">
+                        <Avatar src="http://www.gravatar.com/avatar/a16a38cdfe8b2cbd38e8a56ab93238d3" round={true} style={{float:'left'}} />
+                        <div className="row">
+                            <div className="membership-info col-6">
+                                    <h3>{userInfo?.membership ? "Gold" : "No"} Membership</h3>
+                                    <a href="">Change Membership</a>
+                                    <br />
+                                    <p>Valid till Jun 8th 2022</p>
+                                </div>
+                                <div className="col-3">
+                                    <p className="loyalty-balance">Balance: {userInfo?.loyaltyCoins}</p>
+                                </div>
+                                <div className="col-3">
+                                    <button className="offers-btn">Offers</button>
+                                    <br />
+                                    <br />
+                                    <button className="coins">Coins</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-4 recent-activity">
+                            <div className="profile-order-prdct">
+                                <Avatar style={{float:'left'}} round={true} size="40" src="http://www.gravatar.com/avatar/a16a38cdfe8b2cbd38e8a56ab93238d3" />
+                                <div className="profile-order-info">
+                                    <h6>Name of product</h6>
+                                    <p>Delivered</p>    
+                                </div>
+                                <button className="profile-order-share">Share</button>
+                            </div>
+                            <div className="profile-order-prdct">
+                                <Avatar style={{float:'left'}} round={true} size="40" src="http://www.gravatar.com/avatar/a16a38cdfe8b2cbd38e8a56ab93238d3" />
+                                <div className="profile-order-info">
+                                    <h6>Name of product</h6>
+                                    <p>Delivered</p>    
+                                </div>
+                                <button className="profile-order-share">Share</button>
+                            </div>
                         </div>
                     </div>
                 </div>
