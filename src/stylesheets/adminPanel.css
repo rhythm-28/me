@@ -1,0 +1,43 @@
+.admin-menu
+{
+    background-color:#031E49;
+    padding: 2% 0 2% 4.5%;
+}
+
+.admin-menu-btns
+{
+    background-color: transparent;
+    background-repeat:no-repeat;
+    border: none;
+    font-size: 1.2rem;
+    margin-top: 15%;
+    color: #FFFFFF;
+}
+
+.admin-main
+{
+    background-color: #E8ECF6;
+    padding: 1%;
+}
+
+.admin-top
+{
+    border-radius: 12px;
+    color: white;
+    width: 23%;
+    margin-left: 1.5%;
+}
+
+.new-users
+{
+    background-color: #FFFFFF;
+    margin: 3% 0 0 2%;
+}
+
+.new-users-heading
+{
+    background-color:'#F8F8F8'
+}
+
+
+

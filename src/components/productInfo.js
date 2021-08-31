@@ -115,12 +115,12 @@ function ProductInfo(props) {
 
       let items = response.data.data.items;
       console.log("local cart before doin anything", items);
-      if (items.length === 0) {
+      if (items?.length === 0) {
         axios
           .post(
             "https://modcrew-dev.herokuapp.com/api/v1/cart",
             {
-              items: [
+              "items": [
                 {
                   productId: id,
                   sku: variations[0].sku,
@@ -143,13 +143,13 @@ function ProductInfo(props) {
           });
       } else {
           console.log("inside else block before filter",items);
-        items = items.filter((item) => {
+        items = items?.filter((item) => {
           if (item.productId !== id) {
             return item;
           }
         });
         console.log("inside else block before push",items);
-        items.push({
+        items?.push({
           productId: id,
           sku: variations[0].sku,
           units: quantity,

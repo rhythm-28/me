@@ -130,28 +130,28 @@ function Profile(){
                             <hr style={{margin:'2% 0 5% 0'}}/>
                             <div>
                                 <div className="profile-order-prdct">
-                                    <Avatar style={{float:'left'}} round={true} size="40" src={userInfo?.orders[0].order_items[0].image} />
+                                    <Avatar style={{float:'left'}} round={true} size="40" src={userInfo?.orders[0]?.order_items[0].image} />
                                     <div className="profile-order-info">
-                                        <h6>{userInfo?.orders[0].order_items[0].name.substring(0,10)}</h6>
-                                        <p style={{fontSize:'0.8rem'}}>{userInfo?.orders[0].status}</p>
+                                        <h6>{userInfo?.orders[0]?.order_items[0]?.name.substring(0,10)}</h6>
+                                        <p style={{fontSize:'0.8rem'}}>{userInfo?.orders[0]?.status}</p>
                                         
                                     </div>
                                     <button className="profile-order-share">Share</button>
                                 </div>
                                 <div className="profile-order-prdct">
-                                    <Avatar style={{float:'left'}} round={true} size="40" src={userInfo?.orders[1].order_items[0].image} />
+                                    <Avatar style={{float:'left'}} round={true} size="40" src={userInfo?.orders[1]?.order_items[0]?.image} />
                                     <div className="profile-order-info">
-                                        <h6>{userInfo?.orders[1].order_items[0].name.substring(0,10)}</h6>
-                                        <p style={{fontSize:'0.8rem'}}>{userInfo?.orders[1].status}</p>
+                                        <h6>{userInfo?.orders[1]?.order_items[0]?.name.substring(0,10)}</h6>
+                                        <p style={{fontSize:'0.8rem'}}>{userInfo?.orders[1]?.status}</p>
                                         
                                     </div>
                                     <button className="profile-order-share">Share</button>
                                 </div>
                                 <div className="profile-order-prdct">
-                                    <Avatar style={{float:'left'}} round={true} size="40" src={userInfo?.orders[2].order_items[0].image} />
+                                    <Avatar style={{float:'left'}} round={true} size="40" src={userInfo?.orders[2]?.order_items[0]?.image} />
                                     <div className="profile-order-info">
-                                        <h6>{userInfo?.orders[2].order_items[0].name.substring(0,10)}</h6>
-                                        <p style={{fontSize:'0.8rem'}}>{userInfo?.orders[2].status}</p>
+                                        <h6>{userInfo?.orders[2]?.order_items[0]?.name.substring(0,10)}</h6>
+                                        <p style={{fontSize:'0.8rem'}}>{userInfo?.orders[2]?.status}</p>
                                         
                                     </div>
                                     <button className="profile-order-share">Share</button>
