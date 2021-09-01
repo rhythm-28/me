@@ -43,7 +43,6 @@ function AdminPanel(){
               withCredentials: true,
             })  
             .then((response)=>{
-                //console.log(response.data.data);
                 setAllUsers(response.data.data);
             });
         },[])
@@ -59,7 +58,6 @@ function AdminPanel(){
                   withCredentials: true,
                 })  
                 .then((response)=>{
-                    //console.log(response.data.data);
                     setAllOrders(response.data.data);
                 });
             },[])
@@ -250,10 +248,98 @@ function AdminPanel(){
         );
     }
 
+    const [titleProduct,setTitleProduct] = useState(null); 
+    const [description,setDescription] = useState(null);
+    const [isPublished,setIsPublished] = useState(null);
+    const [color,setColor] = useState(null);
+    const [mrp,setMrp] = useState(null);
+    const [sellingPrice,setSellingPrice] = useState(null);
+    const [tax,setTax] = useState(null);
+    const [hsn,setHsn] = useState(null);
+    const [image,setImage] = useState(null);
+    const [imagesSend,setImagesSend] = useState([]);
+
+    async function submitProduct(){
+        const formData = new FormData();
+      
+                await formData.append("title", "test product-101");
+                await formData.append("description", [
+                    "Size: 8.25inch x 2.75inch",
+                    "Laminated for indoor or outdoor use"
+                ]);
+                await formData.append("category", [
+                            "collectibles",
+                            "key-chain"
+                        ]);
+                await formData.append("isPublished", false);
+                await formData.append("color", "BLACK");
+                await formData.append("mrp", 399);
+                await formData.append("sellingPrice", 249);
+                await formData.append("tax", 18);
+                await formData.append("hsn", 12345678);
+                await formData.append("images", imagesSend);
+                console.log("foram datya",formData.getAll("color"));
+        // const hello = {
+        //     "title": "test product-101",
+        //     "description": [
+        //         "Size: 8.25inch x 2.75inch",
+        //         "Laminated for indoor or outdoor use"
+        //     ],
+        //     "category": [
+        //         "collectibles",
+        //         "key-chain"
+        //     ],
+        //     "isPublished": false,
+        //     "color": "BLACK",
+        //     "mrp": 399,
+        //     "sellingPrice": 249,
+        //     "tax": 18,
+        //     "hsn": 12345678,
+        //     "images": imagesSend
+        // }
+
+        axios.post("https://modcrew-dev.herokuapp.com/api/v1/products",
+            formData,{
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${loggedInToken}`,
+                  },
+                },
+                {
+                  withCredentials: true,
+                })  
+                .then((response)=>{
+                    // setAllOrders(response.data.data);
+                    console.log(response);
+                });
+    }
+
     function renderAddProduct(){
+        
+        // function fileSelectedHandler(e){
+        //     setImagesSend([...imagesSend, e.target.imagesSend]);
+        // }
+
         return (
             <div>
-                6
+                <h4>Add Product</h4>
+                <br />
+                <div className="row">
+                    <div className="col-6 add-product-fields">
+                        <input type="text" placeholder="title" value={titleProduct} onChange={(e)=>{setTitleProduct(e.target.value)}}></input>
+                        <input type="text" placeholder="isPublished" value={isPublished} onChange={(e)=>{setIsPublished(e.target.value)}}></input>
+                        <input type="text" placeholder="color" value={color} onChange={(e)=>{setColor(e.target.value)}}></input>
+                        <input type="text" placeholder="mrp" value={mrp} onChange={(e)=>{setMrp(e.target.value)}}></input>
+                        <input type="text" placeholder="sellingPrice" value={sellingPrice} onChange={(e)=>{setSellingPrice(e.target.value)}}></input>
+                        <input type="text" placeholder="tax" value={tax} onChange={(e)=>{setTax(e.target.value)}}></input>
+                        <input type="text" placeholder="hsn" value={hsn} onChange={(e)=>{setHsn(e.target.value)}}></input>
+                        <input type="file" multiple accept="image/*" onChange={(e)=>{setImagesSend([...imagesSend,...e.target.files])}}/>
+                    </div>
+                    <div className="col-6">
+                        <input type="text" placeholder="description" value={description} onChange={(e)=>{setDescription(e.target.value)}}></input>
+                    </div>
+                </div>
+                <button onClick={()=>{submitProduct()}}>Add Product</button>
             </div>
         );
     }
@@ -263,12 +349,12 @@ function AdminPanel(){
             <Navbar />
             <div className="row">
                 <div className="col-3 admin-menu">
-                    <button className="admin-menu-btns" onClick={()=>{setCurrent("dashboard")}}><img src={home} /> &nbsp; &nbsp; &nbsp; Dashboard</button><br />
-                    <button className="admin-menu-btns" onClick={()=>{setCurrent("customers")}}><img src={customers} /> &nbsp; &nbsp; &nbsp; Customers</button><br />
-                    <button className="admin-menu-btns" onClick={()=>{setCurrent("orders")}}><img src={orders} /> &nbsp; &nbsp; &nbsp; Orders</button><br />
-                    <button className="admin-menu-btns" onClick={()=>{setCurrent("product")}}><img src={product} /> &nbsp; &nbsp; &nbsp; Product</button><br />
-                    <button className="admin-menu-btns" onClick={()=>{setCurrent("inventory")}}><img src={inventory} /> &nbsp; &nbsp; &nbsp; Inventory</button><br />
-                    <button className="admin-menu-btns" onClick={()=>{setCurrent("addProduct")}}><img src={add} /> &nbsp; &nbsp; &nbsp; Add Product</button><br />
+                    <button className={current==="dashboard" ? "admin-menu-btns admin-menu-btn-clicked" : "admin-menu-btns" } onClick={()=>{setCurrent("dashboard")}}><img src={home} /> &nbsp; &nbsp; &nbsp; Dashboard</button><br />
+                    <button className={current==="customers" ? "admin-menu-btns admin-menu-btn-clicked" : "admin-menu-btns" } onClick={()=>{setCurrent("customers")}}><img src={customers} /> &nbsp; &nbsp; &nbsp; Customers</button><br />
+                    <button className={current==="orders" ? "admin-menu-btns admin-menu-btn-clicked" : "admin-menu-btns" } onClick={()=>{setCurrent("orders")}}><img src={orders} /> &nbsp; &nbsp; &nbsp; Orders</button><br />
+                    <button className={current==="product" ? "admin-menu-btns admin-menu-btn-clicked" : "admin-menu-btns" } onClick={()=>{setCurrent("product")}}><img src={product} /> &nbsp; &nbsp; &nbsp; Product</button><br />
+                    <button className={current==="inventory" ? "admin-menu-btns admin-menu-btn-clicked" : "admin-menu-btns" } onClick={()=>{setCurrent("inventory")}}><img src={inventory} /> &nbsp; &nbsp; &nbsp; Inventory</button><br />
+                    <button className={current==="addProduct" ? "admin-menu-btns admin-menu-btn-clicked" : "admin-menu-btns" } onClick={()=>{setCurrent("addProduct")}}><img src={add} /> &nbsp; &nbsp; &nbsp; Add Product</button><br />
                     <button className="admin-menu-btns" onClick={Logout}><img src={logout} /> &nbsp; &nbsp; &nbsp; Logout</button>
                 </div>
                 <div className="col-9 admin-main">

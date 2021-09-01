@@ -56,6 +56,14 @@ function Profile(){
                     setUserInfo(data1);
                 });
     },[]);
+    
+    function renderPersonalDetails(){
+        return (
+            <div>
+                
+            </div>
+        );
+    }
 
     return (
         <div>

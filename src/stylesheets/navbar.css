@@ -28,13 +28,18 @@
 
 .logo
 {
-  background: url("images/logow.svg") no-repeat 10px center;
-  background-size: 160px 400px;
+  /* background: url("images/logow.svg") no-repeat 10px center;
+  background-size: 160px 400px; */
   /* width: 10px;
   height: 10px; */
   width: 200px;
   /* height: 500px; */
   display: block;
+}
+
+.logo img
+{
+    width: 130%;
 }
 
 .navbar-buttons

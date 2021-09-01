@@ -12,7 +12,7 @@ function ThirdNavbar(){
             <span className="third-navbar-spans">
                 <img src={activewearActive}/> 
                 <a href="#category-section">Active Wear</a>
-            </span> 
+            </span>
             <span className="vertical"></span>
             <span className="third-navbar-spans"><img src={topwearActive}/> <a href="#category-section">Top Wear</a></span><span className="vertical"></span>
             <span className="third-navbar-spans"><img src={bottomwearActive}/> <a href="#category-section">Bottom Wear</a></span><span className="vertical"></span>

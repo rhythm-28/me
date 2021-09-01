@@ -271,10 +271,6 @@ function Cart(){
                             <input className="cart-other-address-details" type="text" placeholder="country" name="country" value={country} onChange={(e)=>{handleChange4(e)}}/>
                             <input className="cart-other-address-details" type="number" placeholder="pinCode" name="pinCode" value={pinCode} onChange={(e)=>{handleChange5(e)}}/>
                     </div>
-                        {/* <div className="cart-login-div">
-                            <input type="radio"/>
-                            <label> &nbsp; Payment</label>
-                        </div> */}
                         <div className="cart-login-div">
                             <input type="radio"/>
                             <label> &nbsp; Confirmation</label>
@@ -352,7 +348,6 @@ function Cart(){
                     <hr />
                     <div className="order-summary-heading">
                         <p>Total Cost</p>
-                        {/* <h6>₹{subTotal !==0 ? subTotal+80 : 0}/-</h6> */}
                         <h6>₹{subTotal}/-</h6>
                     </div>
                     <button onClick={()=>{handleCheckOut()}} className="checkout">{stage}</button>

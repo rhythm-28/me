@@ -17,7 +17,6 @@ import cart from "./components/cart.js";
 import profile from "./components/profile.js";
 import orderSummary from "./components/orderSummary.js";
 import adminPanel from "./components/adminPanel.js";
-import addProduct from "./components/addProduct.js";
 
 import topSellingCarousel from "./components/topSellingCarousel.js";
 import VerticalCarousel from "./components/verticalCarousel.js";
@@ -40,7 +39,6 @@ function App() {
           <Route path="/orderSummary" component={orderSummary} />
           <Route path="/admin" component={adminPanel} />
 
-          <Route path="/admin/addProduct" component={addProduct} />
           <Route path="/topSellingCarousel" component={topSellingCarousel} />
           <Route path="/verticalCarousel" component={VerticalCarousel} />
         </Switch>

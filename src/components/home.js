@@ -13,6 +13,14 @@ import Footer from "./footer.js";
 import Product from "./product.js";
 import Carousel from "./carousel.js";
 
+import accessoriesActive from "../icons/accessories-active.svg";
+import activewearActive from "../icons/activewear-active.svg";
+import bottomwearActive from "../icons/bottomwear-active.svg";
+import topwearActive from "../icons/topwear-active.svg";
+import collectablesActive from "../icons/collectables-active.svg";
+
+import Loading from "./loading.js"
+
 import { IoMdCopy } from 'react-icons/io';
 
 function Home(){
@@ -33,6 +41,8 @@ function Home(){
     const [currentCategory,setCurrentCategory] = useState('Select Category');
 
     // const [cartQuantity,setCartQuantity] = useState(0);
+
+    //const [loading,setLoading] = useState(false);
 
     useEffect(()=>{
         axios.get("https://modcrew-dev.herokuapp.com/api/v1/products")
@@ -66,17 +76,14 @@ function Home(){
     },[pageno]);
 
     function handleClick1(e){
-        // setFeatured(false);
         setTypeOfProducts(1);
     }
 
     function handleClick2(){
-        // setFeatured(true);
         setTypeOfProducts(2);
     }
 
     function handleClick3(){
-        // setFeatured(false);
         setTypeOfProducts(3);
     }
 
@@ -92,7 +99,6 @@ function Home(){
                         mrp={product.mrp}
                         img={product.images[0]}
                         productId = {product._id}
-                        // cartQuantity = {cartQuantity}
                     /> 
                 );
             })
@@ -112,7 +118,6 @@ function Home(){
                             mrp={product.mrp}
                             img={product.images[0]}
                             productId = {product._id}
-                            // cartQuantity = {cartQuantity}
                         /> 
                     );
                 } 
@@ -126,14 +131,13 @@ function Home(){
                 if(product.isBestSelling===true){
                     return (
                         <Product 
-                            id={product._id}
+                            id={product._id+"3"}
                             avgRating={product.avgRating} 
                             title={product.title} 
                             sellingPrice={product.sellingPrice}
                             mrp={product.mrp}
                             img={product.images[0]}
                             productId = {product._id}
-                            // cartQuantity = {cartQuantity}
                         /> 
                     );
                 } 
@@ -154,7 +158,6 @@ function Home(){
                         mrp={product.mrp}
                         img={product.images[0]}
                         productId = {product._id}
-                        // cartQuantity = {cartQuantity}
                     /> 
                 );
             })
@@ -220,10 +223,14 @@ function Home(){
     ]
 
     function handleSubCategoryClick(category){
+
+        //setLoading(true);
+
         setSelectedCategory(category);
             axios.get(`https://modcrew-dev.herokuapp.com/api/v1/products?category=${category}`)
             .then((response)=>{
                 setCategoryData(response.data.data);
+                //setLoading(false);
             });
     }
 
@@ -260,13 +267,20 @@ function Home(){
         handleSubCategoryClick(categoriesForApi);
         setCurrentCategory(categoriesForApi);
     }
-
     return (
         <div>
-            <Navbar 
-                // cartQuantity = {cartQuantity}
-            />
-            <ThirdNavbar />
+            <Navbar />
+            <div className="third-navbar">
+                <span onClick={()=>{handleSubCategoryClick("active-wear")}} className="third-navbar-spans">
+                    <img src={activewearActive}/> 
+                    <a href="#category-section">Active Wear</a>
+                </span>
+                <span className="vertical"></span>
+                <span onClick={()=>{handleSubCategoryClick("top-wear")}} className="third-navbar-spans"><img src={topwearActive}/> <a href="#category-section">Top Wear</a></span><span className="vertical"></span>
+                <span onClick={()=>{handleSubCategoryClick("bottom-wear")}} className="third-navbar-spans"><img src={bottomwearActive}/> <a href="#category-section">Bottom Wear</a></span><span className="vertical"></span>
+                <span onClick={()=>{handleSubCategoryClick("accessories")}} className="third-navbar-spans"><img src={accessoriesActive}/> <a href="#category-section">Accessories</a></span><span className="vertical"></span>
+                <span onClick={()=>{handleSubCategoryClick("collectables")}} className="third-navbar-spans"><img src={collectablesActive}/> <a href="#category-section">Collectibles</a></span>
+            </div>
             <Carousel 
                 id={1}
                 img1={cover}
@@ -350,6 +364,7 @@ function Home(){
             </ul>
             </div>
             <div className="row product-div">
+                {/* {loading ? <Loading/> : renderCategoryData()} */}
                 {renderCategoryData()}
             </div>
             <div className="pagination-btns" key={categoryData?.length}>

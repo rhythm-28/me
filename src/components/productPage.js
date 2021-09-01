@@ -39,14 +39,16 @@ function ProductPage(props){
             return similarProducts.map((product)=>{
                 if(product._id!==productData._id)
                 {
+                    console.log("humara kam",product._id);
                     return (
                         <Product 
-                            id={product._id}
+                            id={product._id+"3"}
                             avgRating={product.avgRating} 
                             title={product.title} 
                             sellingPrice={product.sellingPrice}
                             mrp={product.mrp}
                             img={product.images[0]}
+                            productId = {product._id}
                         /> 
                     );
                 } 
