@@ -42,7 +42,7 @@ function AdminPanel(){
               withCredentials: true,
             })  
             .then((response)=>{
-                console.log(response.data.data);
+                //console.log(response.data.data);
                 setAllUsers(response.data.data);
             });
         },[])
@@ -58,7 +58,7 @@ function AdminPanel(){
                   withCredentials: true,
                 })  
                 .then((response)=>{
-                    console.log(response.data.data);
+                    //console.log(response.data.data);
                     setAllOrders(response.data.data);
                 });
             },[])
@@ -78,27 +78,25 @@ function AdminPanel(){
         );
     }
 
-    function renderOrders(){
+    function renderAllOrders(){
         const orders = [];
-        console.log("orders",orders);
         var i;
         var j;
-        for(i=0;i<allOrders.length;i++){
-            for(j=0;j<allOrders[i].order_items.length;j++){
-                orders.push(
-                    {
-                        product : allOrders[i].order_items[j].name,
-                        user : allOrders[i].user,
-                        shipping : allOrders[i].shipping_is_billing,
-                        status : allOrders[i].status
-                    }
-                );
-                // <Order 
-                //     product = {allOrders[i].order_items[j].name}
-                //     user = {allOrders[i].user}
-                //     shipping = {allOrders[i].shipping_is_billing}
-                //     status = {allOrders[i].status}
-                // />
+        var k = 0;
+        for(i=0;i<allOrders?.length;i++){
+            for(j=0;j<allOrders[i]?.order_items?.length;j++){
+                if(k<4){
+                    orders.push(
+                        {
+                            idx : k+1,
+                            product : allOrders[i]?.order_items[j]?.name,
+                            user : allOrders[i]?.user,
+                            shipping : allOrders[i]?.shipping_is_billing,
+                            status : allOrders[i]?.status
+                        }
+                    );
+                    k = k+1;
+                }
             }
         }
         console.log("orders",orders);
@@ -106,9 +104,10 @@ function AdminPanel(){
             orders.map((particular)=>{
                 return (
                     <Order 
+                        idx = {particular.idx}
                         product = {particular.product}
                         user = {particular.user}
-                        shipping = {particular.shipping_is_billing}
+                        shipping = {particular.shipping}
                         status = {particular.status}
                     />
                 )
@@ -120,6 +119,7 @@ function AdminPanel(){
         return (
             <div>
                 <h5>Admin Dashboard</h5>
+                <br/>
                 <div className="row">
                     <div className="col-3 admin-top" style={{backgroundColor:'#0075FF'}}>
                         <p style={{color:'black'}}>New Orders</p>
@@ -143,13 +143,35 @@ function AdminPanel(){
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-4 new-users">
-                        <h6 className="new-users-heading" style={{backgroundColor:'#F8F8F8'}}>New Users Registered</h6>
-                        {renderUsers()}
+                    <div className="col-4 new-users-div">
+                        <h5 className="new-users-heading">New Users Registered</h5>
+                        <div className="new-users">
+                            {renderUsers()}
+                        </div>
                     </div>
-                    <div className="col-7">
-                        <h6>Orders Overview</h6>
-                        {renderOrders()}
+                    <div className="col-8 latest-orders-div">
+                        <h5 className="latest-users-heading">Order Overview</h5>
+                        <div className="latest-orders">
+                            <div className="row">
+                                <div className="col-1" style={{fontWeight:'bold'}}>
+                                    No.
+                                </div>
+                                <div className="col-3" style={{fontWeight:'bold'}}>
+                                    User
+                                </div>
+                                <div className="col-3" style={{fontWeight:'bold'}}>
+                                    Product
+                                </div>
+                                <div className="col-3" style={{fontWeight:'bold'}}>
+                                    Status
+                                </div>
+                                <div className="col-2" style={{fontWeight:'bold'}}>
+                                    Shipping
+                                </div>
+                            </div>
+                            <hr />
+                            {renderAllOrders()}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -210,7 +232,6 @@ function AdminPanel(){
                     <button className="admin-menu-btns" onClick={Logout}><img src={logout} /> &nbsp; &nbsp; &nbsp; Logout</button>
                 </div>
                 <div className="col-9 admin-main">
-                   
                     {current==="dashboard" && renderDashboard()}
                     {current==="customers" && renderCustomers()}
                     {current==="orders" && renderOrders()}

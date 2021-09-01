@@ -1,17 +1,30 @@
 import react from "react";
-import styles from "../stylesheets/order.css";
+import styles from "../stylesheets/adminPanel.css";
 
 function Order(props){
 
-    const {product,user,shipping,status} = props;
+    const {idx,product,user,shipping,status} = props;
 
     return (
         <div>
-            <h1>This is Order page</h1>
-            <h2>product</h2>
-            <h2>user</h2>
-            <h2>shipping</h2>
-            <h2>status</h2>
+        <div className="row">
+            <div className="col-1">
+                {idx}
+            </div>
+            <div className="col-3">
+                {user.substring(0,13)}
+            </div>
+            <div className="col-3">
+                {product.substring(0,20)}
+            </div>
+            <div className="col-3">
+                {status}
+            </div>
+             <div className="col-2">
+                {shipping?"true":"false"}
+            </div>
+        </div>
+        <hr />
         </div>
     );
 }
