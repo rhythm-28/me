@@ -20,8 +20,8 @@ function Order(props){
             <div className="col-3">
                 {status}
             </div>
-             <div className="col-2">
-                {shipping?"true":"false"}
+             <div className="col-2" style={{textAlign:'center'}}>
+                {shipping?"Yes":"No"}
             </div>
         </div>
         <hr />

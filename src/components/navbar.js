@@ -85,7 +85,6 @@ function Navbar(props){
                                         <a className="nav-link" href="/contact">Contact Us</a>
                                     </li>
                                     <li className="nav-item upper-nav-list">
-                                        {/* <Link to={"/about"}> About</Link> */}
                                         <a className="nav-link" href="/about">About</a>
                                     </li>
                                     <li className="nav-item upper-nav-list">
@@ -109,7 +108,7 @@ function Navbar(props){
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     {availableCatagories.map((category)=>{
-                                        return (<li><a class="dropdown-item" href="#">{category}</a></li>);
+                                        return (<li><a class="dropdown-item" href="#">{category.charAt(0).toUpperCase() + category.slice(1)}</a></li>);
                                     })}
                                     </ul>
                                 </div>

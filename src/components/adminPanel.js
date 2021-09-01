@@ -25,7 +25,8 @@ function AdminPanel(){
     const [current,setCurrent] = useState("dashboard");
     const [allUsers,setAllUsers] = useState(null);
     const [allOrders,setAllOrders] = useState(null);
-    
+    const [gettingOrders,setGettingOrders] = useState([]);
+
     function Logout(){
         removeCookie("token");
         window.location.href="/";
@@ -78,39 +79,39 @@ function AdminPanel(){
         );
     }
 
-    function renderAllOrders(){
-        const orders = [];
+    function renderSomeOrders(){
         var i;
         var j;
-        var k = 0;
+        var k = 1;
         for(i=0;i<allOrders?.length;i++){
             for(j=0;j<allOrders[i]?.order_items?.length;j++){
-                if(k<4){
-                    orders.push(
-                        {
-                            idx : k+1,
-                            product : allOrders[i]?.order_items[j]?.name,
-                            user : allOrders[i]?.user,
-                            shipping : allOrders[i]?.shipping_is_billing,
-                            status : allOrders[i]?.status
-                        }
-                    );
-                    k = k+1;
-                }
+                gettingOrders.push(
+                    {
+                        idx : k,
+                        product : allOrders[i]?.order_items[j]?.name,
+                        user : allOrders[i]?.user,
+                        shipping : allOrders[i]?.shipping_is_billing,
+                        status : allOrders[i]?.status
+                    }
+                );
+                k = k + 1;
+                console.log("k",k);
             }
         }
         console.log("orders",orders);
         return (
-            orders.map((particular)=>{
-                return (
-                    <Order 
-                        idx = {particular.idx}
-                        product = {particular.product}
-                        user = {particular.user}
-                        shipping = {particular.shipping}
-                        status = {particular.status}
-                    />
-                )
+            gettingOrders.map((particular,idx)=>{
+                if(idx < 5){
+                    return (
+                        <Order 
+                            idx = {particular.idx}
+                            product = {particular.product}
+                            user = {particular.user}
+                            shipping = {particular.shipping}
+                            status = {particular.status}
+                        />
+                    )
+                }
             })
         );
     }
@@ -118,7 +119,7 @@ function AdminPanel(){
     function renderDashboard(){
         return (
             <div>
-                <h5>Admin Dashboard</h5>
+                <h4>Admin Dashboard</h4>
                 <br/>
                 <div className="row">
                     <div className="col-3 admin-top" style={{backgroundColor:'#0075FF'}}>
@@ -170,7 +171,7 @@ function AdminPanel(){
                                 </div>
                             </div>
                             <hr />
-                            {renderAllOrders()}
+                            {renderSomeOrders()}
                         </div>
                     </div>
                 </div>
@@ -186,10 +187,49 @@ function AdminPanel(){
         );
     }
 
+    function renderAllOrders(){
+        console.log("gettingOrders",gettingOrders);
+        return (
+            gettingOrders.map((particular)=>{
+                return (
+                    <Order 
+                        idx = {particular.idx}
+                        product = {particular.product}
+                        user = {particular.user}
+                        shipping = {particular.shipping}
+                        status = {particular.status}
+                    />
+                )
+            })
+        );
+    }
+
     function renderOrders(){
         return (
             <div>
-                3
+                <h4>All Orders</h4>
+                <br />
+                <div style={{backgroundColor:'#fff'}}>
+                    <div className="row">
+                        <div className="col-1" style={{fontWeight:'bold'}}>
+                            No.
+                        </div>
+                        <div className="col-3" style={{fontWeight:'bold'}}>
+                            User
+                        </div>
+                        <div className="col-3" style={{fontWeight:'bold'}}>
+                            Product
+                        </div>
+                        <div className="col-3" style={{fontWeight:'bold'}}>
+                            Status
+                        </div>
+                        <div className="col-2" style={{fontWeight:'bold'}}>
+                            Shipping
+                        </div>
+                    </div>
+                    <hr />
+                    {renderAllOrders()}
+                </div>
             </div>
         );
     }

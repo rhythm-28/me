@@ -4,7 +4,8 @@ import { useCookies} from 'react-cookie';
 import styles from "../stylesheets/orderSummary.css";
 
 import OrderSummaryProduct from "./orderSummaryProduct.js";
-
+import Navbar from "./navbar.js";
+import ThirdNavbar from "./ThirdNavbar.js";
 
 function OrderSummary(){
 
@@ -31,6 +32,8 @@ function OrderSummary(){
 
     return (
         <div>
+            <Navbar />
+            <ThirdNavbar />
             <div className="col-4 order-success">
                 <h3 style={{textAlign:'center'}}>Order Summary</h3>
                 <hr />

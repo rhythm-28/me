@@ -100,6 +100,7 @@ function Cart(){
                 // alert(response.razorpay_payment_id);
                 // alert(response.razorpay_order_id);
                 // alert(response.razorpay_signature)
+                removeAllProducts();
                 window.location.href="/orderSummary";
             },
             "prefill": {
@@ -174,24 +175,11 @@ function Cart(){
             const id = response3.data.id;
             const currency = response3.data.currency;
             const amount = response3.data.amount;
-            // console.log(response3.data.amount);
-            // const amount = parseInt(response3.data.amount)/100+parseInt("80");
-            // console.log("amount",amount);
             console.log("id",id);
             
             // 4) razorpay
             displayRazorpay(amount,currency,data1.firstName,id,data1.email,data1.phone);
 
-            // 5) get order summary
-            // const response5 = await axios.get(`https://modcrew-dev.herokuapp.com/api/v1/orders/${_id}`,{
-            //     headers: {
-            //         "Content-Type": "application/json",
-            //         Authorization: `Bearer ${loggedInToken}`
-            //       }
-            // },{
-            //     withCredentials: true,
-            // });
-            // console.log("response5",response5.data.data);
         }
     }
 
