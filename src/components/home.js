@@ -13,7 +13,7 @@ import Footer from "./footer.js";
 import Product from "./product.js";
 import Carousel from "./carousel.js";
 
-import accessoriesActive from "../icons/accessories-active.svg";
+import accessoriesActive from "../icons/accessories-inactive.svg";
 import activewearActive from "../icons/activewear-active.svg";
 import bottomwearActive from "../icons/bottomwear-active.svg";
 import topwearActive from "../icons/topwear-active.svg";

@@ -54,6 +54,7 @@ function OrderSummary(){
                     <h6>₹{subTotal}/-</h6>
                 </div>
             </div>
+            <button style={{marginLeft:'47%'}} onClick={()=>{window.location.href="/"}}>Continue Shopping</button>
         </div>
     );
 }

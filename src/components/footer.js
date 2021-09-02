@@ -55,10 +55,10 @@ function Footer(){
                 </div>
                 <div className="col-2 footer-lists">
                     <h6> Connect @</h6>
-                    <FaFacebookF size={20}className="white-color"/><a href=""> Facebook</a><br />
-                    <IoLogoWhatsapp size={20} className="white-color"/><a href=""> Whatsapp</a><br />
-                    <RiTwitterFill size={20} className="white-color"/><a href=""> Twitter</a><br />
-                    <RiInstagramFill size={20} className="white-color"/><a href=""> Instagram</a>
+                    <FaFacebookF size={20}className="white-color"/><a style={{color:'white'}} href=""> Facebook</a><br />
+                    <IoLogoWhatsapp size={20} className="white-color"/><a style={{color:'white'}} href=""> Whatsapp</a><br />
+                    <RiTwitterFill size={20} className="white-color"/><a style={{color:'white'}} href=""> Twitter</a><br />
+                    <RiInstagramFill size={20} className="white-color"/><a style={{color:'white'}} href=""> Instagram</a>
                 </div>
             </div>
             <div className="second-footer">

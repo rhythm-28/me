@@ -344,11 +344,19 @@ function Cart(){
                 <h3>Order Summary</h3>
                     <hr />
                     {stage==="Check Out" ? renderShippingDetails() : renderCartProducts()}
-                    
+                    <br />
+                    <div className="order-summary-heading">
+                        <p>Cost</p>
+                        <h6>₹ {subTotal-subTotal*0.18}/-</h6>
+                    </div>
+                    <div className="order-summary-heading">
+                        <p>GST (18%)</p>
+                        <h6>₹ {0.18*subTotal}/-</h6>
+                    </div>
                     <hr />
                     <div className="order-summary-heading">
                         <p>Total Cost</p>
-                        <h6>₹{subTotal}/-</h6>
+                        <h6>₹ {subTotal}/-</h6>
                     </div>
                     <button onClick={()=>{handleCheckOut()}} className="checkout">{stage}</button>
                 </div>

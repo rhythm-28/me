@@ -264,21 +264,25 @@ function AdminPanel(){
     async function submitProduct(){
         const formData = new FormData();
       
-                await formData.append("title", "test product-101");
-                await formData.append("description", [
-                    "Size: 8.25inch x 2.75inch",
-                    "Laminated for indoor or outdoor use"
-                ]);
-                await selectedSubCategories.forEach((category)=>{
+                formData.append("title", "test product-101");
+                formData.append("description", 
+                    "Size: 8.25inch x 2.75inch");
+                    formData.append("description", 
+                    "something: 8.25inch x 2.75inch");
+
+                selectedSubCategories.forEach((category)=>{
                     formData.append("category",category );
                 });
-                await formData.append("isPublished", false);
-                await formData.append("color", "BLACK");
-                await formData.append("mrp", 399);
-                await formData.append("sellingPrice", 249);
-                await formData.append("tax", 18);
-                await formData.append("hsn", 12345678);
-                await formData.append("images", imagesSend);
+                formData.append("isPublished", false);
+                formData.append("color", "BLACK");
+                formData.append("mrp", 399);
+                formData.append("sellingPrice", 249);
+                formData.append("tax", 18);
+                formData.append("hsn", 12345678);
+                imagesSend.forEach((particularImage)=>{
+                    formData.append("images", particularImage);
+                });
+                //formData.append("images", imagesSend);
                 console.log("form data",formData.getAll("category"));
         // const hello = {
         //     "title": "test product-101",
@@ -305,9 +309,6 @@ function AdminPanel(){
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${loggedInToken}`,
                   },
-                },
-                {
-                  withCredentials: true,
                 })  
                 .then((response)=>{
                     // setAllOrders(response.data.data);
