@@ -25,7 +25,7 @@ function AdminPanel(){
     const [current,setCurrent] = useState("dashboard");
     const [allUsers,setAllUsers] = useState(null);
     const [allOrders,setAllOrders] = useState(null);
-    const [gettingOrders,setGettingOrders] = useState([]);
+    const [gettingOrders,setGettingOrders] = useState(null);
 
     function Logout(){
         removeCookie("token");
@@ -59,6 +59,7 @@ function AdminPanel(){
                 })  
                 .then((response)=>{
                     setAllOrders(response.data.data);
+                    setGettingOrders(response.data.data);
                 });
             },[])
 
@@ -83,7 +84,7 @@ function AdminPanel(){
         var k = 1;
         for(i=0;i<allOrders?.length;i++){
             for(j=0;j<allOrders[i]?.order_items?.length;j++){
-                gettingOrders.push(
+                gettingOrders?.push(
                     {
                         idx : k,
                         product : allOrders[i]?.order_items[j]?.name,
@@ -98,7 +99,7 @@ function AdminPanel(){
         }
         console.log("orders",orders);
         return (
-            gettingOrders.map((particular,idx)=>{
+            gettingOrders?.map((particular,idx)=>{
                 if(idx < 5){
                     return (
                         <Order 
@@ -188,7 +189,7 @@ function AdminPanel(){
     function renderAllOrders(){
         console.log("gettingOrders",gettingOrders);
         return (
-            gettingOrders.map((particular)=>{
+            gettingOrders?.map((particular)=>{
                 return (
                     <Order 
                         idx = {particular.idx}
@@ -258,6 +259,7 @@ function AdminPanel(){
     const [hsn,setHsn] = useState(null);
     const [image,setImage] = useState(null);
     const [imagesSend,setImagesSend] = useState([]);
+    const [categoriesAdd,setCategoriesAdd] = useState(null);
 
     async function submitProduct(){
         const formData = new FormData();
@@ -267,10 +269,9 @@ function AdminPanel(){
                     "Size: 8.25inch x 2.75inch",
                     "Laminated for indoor or outdoor use"
                 ]);
-                await formData.append("category", [
-                            "collectibles",
-                            "key-chain"
-                        ]);
+                await selectedSubCategories.forEach((category)=>{
+                    formData.append("category",category );
+                });
                 await formData.append("isPublished", false);
                 await formData.append("color", "BLACK");
                 await formData.append("mrp", 399);
@@ -278,7 +279,7 @@ function AdminPanel(){
                 await formData.append("tax", 18);
                 await formData.append("hsn", 12345678);
                 await formData.append("images", imagesSend);
-                console.log("foram datya",formData.getAll("color"));
+                console.log("form data",formData.getAll("category"));
         // const hello = {
         //     "title": "test product-101",
         //     "description": [
@@ -313,12 +314,25 @@ function AdminPanel(){
                     console.log(response);
                 });
     }
+    
+    var selectedSubCategories = [];
+
+    function handleCheckboxCLick(e){
+        console.log(selectedSubCategories);
+        const checkBox = e.target;
+        const subcategory = checkBox.value;
+        if (checkBox.checked == true){
+            selectedSubCategories.push(subcategory);
+        }
+        else{
+            selectedSubCategories = selectedSubCategories.filter(function(item) {
+                return item !== subcategory;
+            })
+        }
+        console.log("product add page",selectedSubCategories);
+    }
 
     function renderAddProduct(){
-        
-        // function fileSelectedHandler(e){
-        //     setImagesSend([...imagesSend, e.target.imagesSend]);
-        // }
 
         return (
             <div>
@@ -333,13 +347,66 @@ function AdminPanel(){
                         <input type="text" placeholder="sellingPrice" value={sellingPrice} onChange={(e)=>{setSellingPrice(e.target.value)}}></input>
                         <input type="text" placeholder="tax" value={tax} onChange={(e)=>{setTax(e.target.value)}}></input>
                         <input type="text" placeholder="hsn" value={hsn} onChange={(e)=>{setHsn(e.target.value)}}></input>
+                        <br />
+                        <label> Images: &nbsp; </label>
                         <input type="file" multiple accept="image/*" onChange={(e)=>{setImagesSend([...imagesSend,...e.target.files])}}/>
                     </div>
                     <div className="col-6">
-                        <input type="text" placeholder="description" value={description} onChange={(e)=>{setDescription(e.target.value)}}></input>
+                            <textarea type="text" rows="4" cols="50" placeholder="description" value={description} onChange={(e)=>{setDescription(e.target.value)}}></textarea>
+                            <div className="all-categories all-categories-add">
+                                <h6>Select categories</h6>
+                                <div className="sub-category-div">
+                                        <label for="active-wear">Active Wear</label>
+                                        <input style={{color:'red'}} type="checkbox" id="active-wear" name="vehicle1" value="active-wear" onClick={(e)=>{handleCheckboxCLick(e)}}/>
+                                        <label for="jogger">Jogger</label>
+                                        <input style={{color:'red'}} type="checkbox" id="jogger" name="vehicle1" value="jogger" onClick={(e)=>{handleCheckboxCLick(e)}}/>
+                                        <label for="jersey">Jersey</label>
+                                        <input type="checkbox" id="jersey" name="vehicle1" value="jersey" onClick={(e)=>{handleCheckboxCLick(e)}}/>
+                                </div>
+                                <div className="sub-category-div">
+                                        <label for="top-wear">Top Wear</label>
+                                        <input style={{color:'red'}} type="checkbox" id="top-wear" name="vehicle1" value="top-wear" onClick={(e)=>{handleCheckboxCLick(e)}}/>
+                                        <label for="henley">Henley</label>
+                                        <input type="checkbox" id="henley" name="vehicle1" value="henley" onClick={(e)=>{handleCheckboxCLick(e)}}/>
+                                        <label for="crop-top">Crop-top</label>
+                                        <input type="checkbox" id="crop-top" name="vehicle1" value="crop-top" onClick={(e)=>{handleCheckboxCLick(e)}} onClick={(e)=>{handleCheckboxCLick(e)}} />
+                                        <label for="round-neck">Round-neck</label>
+                                        <input type="checkbox" id="round-neck" name="vehicle1" value="round-neck" onClick={(e)=>{handleCheckboxCLick(e)}} />
+                                </div>
+                                <div className="sub-category-div">
+                                        <label for="accessories">Accessories</label>
+                                        <input style={{color:'red'}} type="checkbox" id="accessories" name="vehicle1" value="accessories" onClick={(e)=>{handleCheckboxCLick(e)}}/>                  
+                                        <label for="cap">Cap</label>
+                                        <input type="checkbox" id="cap" name="vehicle1" value="cap" onClick={(e)=>{handleCheckboxCLick(e)}}/>
+                                        <label for="bag">Bag</label>
+                                        <input type="checkbox" id="bag" name="vehicle1" value="bag"  onClick={(e)=>{handleCheckboxCLick(e)}}/>
+                                        <label for="bandana">Bandana</label>
+                                        <input type="checkbox" id="bandana" name="vehicle1" value="bandana"  onClick={(e)=>{handleCheckboxCLick(e)}}/>
+                                </div>
+                                <div className="sub-category-div">
+                                        <label for="bottom-wear">Bottom Wear</label>
+                                        <input style={{color:'red'}} type="checkbox" id="bottom-wear" name="vehicle1" value="bottom-wear" onClick={(e)=>{handleCheckboxCLick(e)}}/>
+                                        <label for="shorts">Shorts</label>
+                                        <input type="checkbox" id="shorts" name="vehicle1" value="shorts" onClick={(e)=>{handleCheckboxCLick(e)}}/>
+                                </div>
+                            <div className="sub-category-div">
+                                        <label for="collectibles">Collectibles</label>
+                                        <input style={{color:'red'}} type="checkbox" id="collectibles" name="vehicle1" value="collectibles" onClick={(e)=>{handleCheckboxCLick(e)}}/>
+                                    <label for="diary">Diary</label>
+                                    <input type="checkbox" id="diary" name="vehicle1" value="diary" onClick={(e)=>{handleCheckboxCLick(e)}}/>
+                                    <label for="sticker">Sticker</label>
+                                    <input type="checkbox" id="sticker" name="vehicle1" value="sticker" onClick={(e)=>{handleCheckboxCLick(e)}} />
+                                    <label for="badge">Badge</label>
+                                    <input type="checkbox" id="badge" name="vehicle1" value="badge" onClick={(e)=>{handleCheckboxCLick(e)}} />
+                                    <label for="key-chain">Key-chain</label>
+                                    <input type="checkbox" id="key-chain" name="vehicle1" value="key-chain" onClick={(e)=>{handleCheckboxCLick(e)}} />
+                                    <label for="poster">Poster</label>
+                                    <input type="checkbox" id="posterd" name="vehicle1" value="poster" onClick={(e)=>{handleCheckboxCLick(e)}} />
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <button onClick={()=>{submitProduct()}}>Add Product</button>
+                <button className="add-product-btn" onClick={()=>{submitProduct()}}>Add Product</button>
             </div>
         );
     }

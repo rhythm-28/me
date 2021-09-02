@@ -12,10 +12,10 @@ function Order(props){
                 {idx}
             </div>
             <div className="col-3">
-                {user.substring(0,13)}
+                {user?.substring(0,13)}
             </div>
             <div className="col-3">
-                {product.substring(0,20)}
+                {product?.substring(0,20)}
             </div>
             <div className="col-3">
                 {status}

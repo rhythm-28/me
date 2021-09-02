@@ -98,3 +98,15 @@
 {
     color: red;
 }
+
+.add-product-btn
+{
+    margin: 2% 0 0 40%;
+}
+
+.all-categories-add
+{
+    width: 85%;
+    margin-top: 5%;
+    padding: 0%;
+}
