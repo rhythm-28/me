@@ -33,6 +33,7 @@ function Profile(){
     const [cookies, setCookie, removeCookie,get] = useCookies(['token']);
     const loggedInToken = cookies.token;
     const [userInfo,setUserInfo] = useState(null);
+    const [current,setCurrent] = useState("personal details");
 
     function Logout(){
         removeCookie("token");
@@ -59,34 +60,7 @@ function Profile(){
     
     function renderPersonalDetails(){
         return (
-            <div>
-                
-            </div>
-        );
-    }
-
-    return (
-        <div>
-            <Navbar />
-            <ThirdNavbar />
-            <div style={{marginTop:'1%',backgroundColor:'#FFFFFF'}}> 
-                <a href="/" className="profile-anchor">Home </a>
-                >
-                <a href="/profile" className="home-anchor"> Profile</a>
-            </div>
-            <hr style={{marginBottom:'0',height:'3px'}} />
-            <div className="row">
-                <div className="col-3 menu">
-                    <button className="new-post">New Post</button>
-                    <button className="menu-btns"><img src={personal} /> &nbsp; &nbsp; &nbsp; Personal Details</button><br />
-                    <button className="menu-btns"><img src={community} /> &nbsp; &nbsp; &nbsp; Community</button><br />
-                    <button className="menu-btns"><img src={chat} /> &nbsp; &nbsp; &nbsp; Chat</button><br />
-                    <button className="menu-btns"><img src={stuff} /> &nbsp; &nbsp; &nbsp; My Stuff</button><br />
-                    <button className="menu-btns"><img src={orders} /> &nbsp; &nbsp; &nbsp; My Orders</button><br />
-                    <button className="menu-btns"><img src={settings} /> &nbsp; &nbsp; &nbsp; Settings</button><br />
-                    <button className="menu-btns" onClick={Logout}><img src={logout} /> &nbsp; &nbsp; &nbsp; Logout</button>
-                </div>
-                <div className="col-9 profile-section">
+            <div className="col-9 profile-section">
                     <h4 style={{marginBottom:'3%'}}>Personal Details</h4>
                     <div className="row personal-first-div">
                         <div className="col-4 personal-info">
@@ -220,7 +194,79 @@ function Profile(){
                             </div>
                         </div>
                     </div>
+                </div> 
+        );
+    }
+
+    function renderCommunity(){
+        return (
+            <div>
+
+            </div>
+        );
+    }
+
+    function renderChat(){
+        return (
+            <div>
+                
+            </div>
+        );
+    }
+
+    function renderMyStuff(){
+        return (
+            <div>
+                
+            </div>
+        );
+    }
+
+    function renderOrders(){
+        return (
+            <div>
+                
+            </div>
+        );
+    }
+
+    function renderSettings(){
+        return (
+            <div>
+                
+            </div>
+        );
+    }
+
+    return (
+        <div>
+            <Navbar />
+            <ThirdNavbar />
+            <div style={{marginTop:'1%',backgroundColor:'#FFFFFF'}}> 
+                <a href="/" className="profile-anchor">Home </a>
+                >
+                <a href="/profile" className="home-anchor"> Profile</a>
+            </div>
+            <hr style={{marginBottom:'0',height:'3px'}} />
+            <div className="row">
+                <div className="col-3 menu">
+                    <button className="new-post">New Post</button>
+                    <button onClick={()=>{setCurrent("personal details")}} className={current==="personal details" ? "menu-btns profile-menu-btn-clicked" : "menu-btns"}><img src={personal} /> &nbsp; &nbsp; &nbsp; Personal Details</button><br />
+                    <button onClick={()=>{setCurrent("community")}} className={current==="community" ? "menu-btns profile-menu-btn-clicked" : "menu-btns"}><img src={community} /> &nbsp; &nbsp; &nbsp; Community</button><br />
+                    <button onClick={()=>{setCurrent("chat")}} className={current==="chat" ? "menu-btns profile-menu-btn-clicked" : "menu-btns"}><img src={chat} /> &nbsp; &nbsp; &nbsp; Chat</button><br />
+                    <button onClick={()=>{setCurrent("my stuff")}} className={current==="my stuff" ? "menu-btns profile-menu-btn-clicked" : "menu-btns"}><img src={stuff} /> &nbsp; &nbsp; &nbsp; My Stuff</button><br />
+                    <button onClick={()=>{setCurrent("orders")}} className={current==="orders" ? "menu-btns profile-menu-btn-clicked" : "menu-btns"}><img src={orders} /> &nbsp; &nbsp; &nbsp; My Orders</button><br />
+                    <button onClick={()=>{setCurrent("settings")}} className={current==="settings" ? "menu-btns profile-menu-btn-clicked" : "menu-btns"}><img src={settings} /> &nbsp; &nbsp; &nbsp; Settings</button><br />
+                    <button className="menu-btns" onClick={Logout}><img src={logout} /> &nbsp; &nbsp; &nbsp; Logout</button>
                 </div>
+
+                {current==="personal details" && renderPersonalDetails()}
+                {current==="community" && renderCommunity()}
+                {current==="chat" && renderChat()}
+                {current==="my stuff" && renderMyStuff()}
+                {current==="orders" && renderOrders()}
+                {current==="settings" && renderSettings()}
+
             </div>
             <hr />
             <Carousel 
