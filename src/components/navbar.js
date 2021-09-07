@@ -71,7 +71,7 @@ function Navbar(props){
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-                        <a className="navbar-brand logo" href="#"><img src={logow} /></a>
+                        <a className="navbar-brand logo" href="./"><img src={logow} /></a>
                         <div className="main-div">
                             <div className="row upper-navbar">
                                 <ul className="navbar-nav col-6 me-auto ">

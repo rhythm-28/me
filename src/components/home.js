@@ -86,7 +86,7 @@ function Home(){
     function handleClick3(){
         setTypeOfProducts(3);
     }
-
+    /* can return a custom component as a function return value. */
     function renderLatest(){
         if(data!==null){
             return data.map((product)=>{ 
@@ -235,6 +235,7 @@ function Home(){
     }
 
     var selectedSubCategories = [];
+    /* mantaining an array for selected subCategories. */
 
     function handleCheckboxCLick(e){
         console.log(selectedSubCategories);
@@ -243,7 +244,8 @@ function Home(){
         if (checkBox.checked == true){
             selectedSubCategories.push(subcategory);
         }
-        else{
+        else {
+            //standard removal of an element from the array.
             selectedSubCategories = selectedSubCategories.filter(function(item) {
                 return item !== subcategory;
             })
@@ -300,6 +302,7 @@ function Home(){
                 </div>
             </div>
             <div className="row landing-buttons-tray">
+                {/* classic conditional redering */}
                 <button id="landing-1" value={1} onClick={(e) => {handleClick1(e)}} className={typeOfProducts===1 ? "landing-page-button landing-page-red col" : "landing-page-button col"} >New Arrivals </button>
                 <button id="landing-2" value={2} onClick={(e) => {handleClick2(e)}} className={typeOfProducts===2 ? "landing-page-button landing-page-red col" : "landing-page-button col"} > Featured Products</button>
                 <button id="landing-3" value={3} onClick={(e) => {handleClick3(e)}} className={typeOfProducts===3 ? "landing-page-button landing-page-red col" : "landing-page-button col"} >Best Selling </button>
@@ -310,6 +313,7 @@ function Home(){
                 {typeOfProducts===3 && renderBestSelling()}
             </div>
             <hr />
+
             <div id="category-section" class="dropdown category-dropdown-trnsprnt">
             <button class="btn btn-secondary dropdown-toggle select-categories-btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 Select categories

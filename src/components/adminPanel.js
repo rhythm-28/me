@@ -314,6 +314,8 @@ function AdminPanel(){
                     // setAllOrders(response.data.data);
                     console.log(response);
                 });
+        
+        
     }
     
     var selectedSubCategories = [];
@@ -411,6 +413,48 @@ function AdminPanel(){
             </div>
         );
     }
+    const [size, setsize] = useState(null);
+    const [sku, setsku] = useState(null);
+    const [stockCapacity, setStockCapacity] = useState(null);
+    const [ProductID, setProductID] = useState(null);
+
+    function addVariation() {
+
+        axios.get("https://modcrew-dev.herokuapp.com/api/v1/products"+{ProductID},{
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${loggedInToken}`,
+            },
+        },
+            {
+                withCredentials: true,
+            })
+            .then((response) => {
+                response.data.variations.push({
+                    "size": size,
+                    "sku": sku,
+                    "stockQuantity":stockCapacity,
+                })
+            });
+
+    }
+
+    function renderAddVariation() {
+        return (
+            <div> 
+                <h4>Add Variation</h4>
+                <br />
+                <div className="col-6 add-product-fields">
+                    <input type="text" placeholder="Product ID" value={ProductID} onChange={(e)=>{setProductID(e.target.value)}}></input>    
+                    <input type="text" placeholder="Size" value={size} onChange={(e) => { setsize(e.target.value) }}></input>
+                    <input type="text" placeholder="Sku" value={sku} onChange={(e)=>{setsku(e.target.value)}}></input>
+                    <input type="text" placeholder="Stock Capacity" value={stockCapacity} onChange={(e)=>{setStockCapacity(e.target.value)}}></input>
+                        
+                </div>
+                <button className="add-variation-btn" onClick={()=>{addVariation()}}>Add Variation</button>
+            </div>
+         );
+    }
 
     return (
         <div>
@@ -422,7 +466,8 @@ function AdminPanel(){
                     <button className={current==="orders" ? "admin-menu-btns admin-menu-btn-clicked" : "admin-menu-btns" } onClick={()=>{setCurrent("orders")}}><img src={orders} /> &nbsp; &nbsp; &nbsp; Orders</button><br />
                     <button className={current==="product" ? "admin-menu-btns admin-menu-btn-clicked" : "admin-menu-btns" } onClick={()=>{setCurrent("product")}}><img src={product} /> &nbsp; &nbsp; &nbsp; Product</button><br />
                     <button className={current==="inventory" ? "admin-menu-btns admin-menu-btn-clicked" : "admin-menu-btns" } onClick={()=>{setCurrent("inventory")}}><img src={inventory} /> &nbsp; &nbsp; &nbsp; Inventory</button><br />
-                    <button className={current==="addProduct" ? "admin-menu-btns admin-menu-btn-clicked" : "admin-menu-btns" } onClick={()=>{setCurrent("addProduct")}}><img src={add} /> &nbsp; &nbsp; &nbsp; Add Product</button><br />
+                    <button className={current === "addProduct" ? "admin-menu-btns admin-menu-btn-clicked" : "admin-menu-btns"} onClick={() => { setCurrent("addProduct") }}><img src={add} /> &nbsp; &nbsp; &nbsp; Add Product</button><br />
+                    <button className={current==="addVariation" ? "admin-menu-btns admin-menu-btn-clicked" : "admin-menu-btns" } onClick={()=>{setCurrent("addVariation")}}><img src={add} /> &nbsp; &nbsp; &nbsp; Add Variation</button><br />
                     <button className="admin-menu-btns" onClick={Logout}><img src={logout} /> &nbsp; &nbsp; &nbsp; Logout</button>
                 </div>
                 <div className="col-9 admin-main">
@@ -431,7 +476,8 @@ function AdminPanel(){
                     {current==="orders" && renderOrders()}
                     {current==="product" && renderProduct()}
                     {current==="inventory" && renderInventory()}
-                    {current==="addProduct" && renderAddProduct()}
+                    {current ==="addProduct" && renderAddProduct()}
+                    {current ==="addVariation" && renderAddVariation()}
                 </div>
             </div>
         </div>
